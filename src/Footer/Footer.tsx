@@ -9,7 +9,8 @@ export const Footer: FC=()=>{
   <div className="footer">
       <div className="main-div">
         <div className="first-div">
-          <h2>Ikone</h2>
+          <h2>facebook/instagram</h2>
+          
         </div>
         <div className="second-div">
           <div className="qsd">
