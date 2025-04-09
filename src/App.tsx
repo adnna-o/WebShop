@@ -4,17 +4,19 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { HomePage } from "./HomePage";
 import { FAQ } from "./FAQ";
-import { Contact } from "./Contact";
+import { Contact } from "./Components/Contact";
+import Layout from "./Components/layouts/Layout";
 
 function App() {
   return (
     <>
-      <Routes>
+     <Routes>
+      <Route  element={<Layout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/faq"element={<FAQ/>}/>
-        <Route path="/contact"element={<Contact/>}/>
-
-      </Routes>
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/contact" element={<Contact />} />
+      </Route>
+    </Routes>
     </>
   );
 }

@@ -23,7 +23,7 @@ export const Footer: FC=()=>{
           </div>
           <div className="customer">
             <h2>Customer support</h2>
-            <Link to="/faq" style={{ textDecoration: 'none', color: 'white' }}>Freuqently Asked Questions</Link>
+            <Link to="/faq?open=true" style={{ textDecoration: 'none', color: 'white' }}>Freuqently Asked Questions</Link>
             <Link to="/contact" style={{ textDecoration: 'none', color: 'white' }}>Contact us</Link>
           </div>
           <div className="legal">
