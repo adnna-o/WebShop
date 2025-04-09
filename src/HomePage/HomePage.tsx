@@ -1,5 +1,6 @@
 import { FC } from "react"
 import "./HomePage.css"
+import { Footer } from "../Footer"
 
 export const HomePage: FC=()=>{
     return <>
@@ -10,8 +11,6 @@ export const HomePage: FC=()=>{
         <h1>Naslov</h1>
 
     </div>
-    <footer>
-
-    </footer>
+    <Footer/>
     </>
 }
