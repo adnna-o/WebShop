@@ -10,8 +10,6 @@ export const HomePage: FC=()=>{
         <h1>Naslov</h1>
 
     </div>
-    <footer>
-
-    </footer>
+   
     </>
 }

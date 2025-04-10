@@ -1,0 +1,68 @@
+.main {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    padding: 20px;
+    background-color: #5978dc; 
+    color: white;
+  }
+  
+  .first-div,
+  .third-div {
+    margin: 10px 0;
+  }
+  
+  .second-div {
+    display: flex;
+    justify-content: space-between; 
+    width: 100%; 
+    padding: 20px;
+  }
+
+  .qsd,
+.customer,
+.legal {
+  flex: 1; 
+  margin: 0 10px; 
+}
+
+.qsd h2,
+.customer h2,
+.legal h2 {
+  margin-top: 0; 
+}
+
+.qsd span {
+  display: block; 
+  margin-bottom: 5px; 
+}
+  .footer {
+    
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #5978dc;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .customer {
+    display: flex;
+    flex-direction: column; /* Raspoređuje linkove jedan ispod drugog */
+    align-items: center; /* Poravnava linkove sa početkom (levo) */
+    gap: 10px; /* Razmak između linkova */
+  }
+
+  .customer a {
+    color: white; /* Postavi boju linka */
+    text-decoration: none; /* Ukloni podvlačenje */
+    font-weight: bold; /* Ojačaj tekst */
+    padding: 5px 0; /* Dodaj razmak unutar linka */
+  }
+  
+  .customer a:hover {
+    color: #f1f1f1; /* Promeni boju na hover */
+  }
+  
