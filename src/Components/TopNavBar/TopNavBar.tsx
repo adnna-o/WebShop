@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import './TopNavBar.css'
+import './TopNavBar.css';
 import { CiHeart } from "react-icons/ci";
 import { RiShoppingBasketLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
