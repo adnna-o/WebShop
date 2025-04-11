@@ -1,0 +1,50 @@
+.category-cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 50px 0;
+  }
+  
+  .category-card {
+    width: 250px;
+    height: 350px;
+    
+  background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .category-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .category-label {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .category-card:hover .category-label {
+    opacity: 1;
+  }
+  
+  .women {
+    background-image: url("/public/images/women.webp");
+  }
+  
+  .men {
+    background-image: url("/public/images/men.webp");
+  }
+  
+  .kids {
+    background-image: url("/public/images/children.webp");
+  }
+  
