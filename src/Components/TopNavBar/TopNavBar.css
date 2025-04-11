@@ -1,37 +1,125 @@
-/* src/components/NavBar.css */
+
 .navbar {
-    border: 1px solid black;
-    width: 97%;
-    height: 80px;
-    background-color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 30px;
-    
-  }
-  
-  .navbar-left,
-  .navbar-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .nav-link {
-    text-decoration: none;
-    color: black;
-    font-size: 16px;
+  border: 1px solid black;
+  width: 97%;
+  height: 80px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  position: relative;
+}
+
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.logo-img {
+  cursor: pointer;
+  width: 200px;
+  height: auto;
+}
+
+
+.desktop-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* Mobile menu button (hidden by default) */
+.hamburger-menu {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+
+.icon-link {
+  font-size: 24px;
+  color: black;
+  text-decoration: none;
+}
+
+/* Mobile menu (hidden by default) */
+.mobile-menu {
+  display: none;
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid rgb(173, 172, 172);
+  flex-direction: column;
+  position: absolute;
+  align-items: center;
+  left: 0;
+  z-index: 1000;
+}
+
+.mobile-nav-link {
+  text-decoration: none;
+  color: black;
+  padding: 15px 30px;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 15px;
   }
 
- 
+  .hamburger-menu {
+    display: block;
+    order: -1; 
+    margin-right: 0;
+  }
+
+  .desktop-links {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+
   .logo-img {
-    cursor: pointer; 
-    width: 200px;
-    height: auto;
+    width: 150px;
   }
-  
- 
-  
 
-  
+  /* Reorder items in navbar-right */
+  .navbar-right {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    height: 60px;
+  }
+
+  .logo-img {
+    width: 120px;
+  }
+
+  .navbar-right {
+    gap: 10px;
+  }
+
+  .icon-link {
+    font-size: 20px;
+  }
+}

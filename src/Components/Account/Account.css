@@ -1,0 +1,32 @@
+.account-section {
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start; 
+    font-family: sans-serif;
+  }
+  
+  .account-icon {
+    font-size: 2.5rem;
+    color: #2c4f2c;
+    margin-right: 12px;
+  }
+  
+  .account-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .account-name {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 4px;
+    font-weight: normal;
+  }
+  
+  .account-email {
+    font-size: 14px;
+    color: #666;
+    font-weight: normal; 
+  }
+  
