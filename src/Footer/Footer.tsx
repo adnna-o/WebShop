@@ -1,6 +1,5 @@
 import { FC } from "react";
 import "./Footer.css";
-import { FAQ } from "../FAQ";
 import { Link } from "react-router-dom";
 import {
   FaFacebook,
