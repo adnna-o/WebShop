@@ -8,7 +8,6 @@ import { Link , Outlet} from 'react-router-dom';
 const PersonalSettings: React.FC = () => {
   return (
     <>
-    <NavBar/>
     <div className="personal-settings">
       <h2 className="settings-title">My Account</h2>
 

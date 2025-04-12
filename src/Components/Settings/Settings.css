@@ -1,0 +1,45 @@
+.link-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* razmak između linkova */
+    margin-left: 10px;
+
+  }
+  
+  .link {
+    display: block; 
+    text-decoration: none;
+    font-family: Glory, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #282828;
+  }
+  
+  .section-name{
+    color: #282828;
+    font-family: Glory, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 0 0 20px 10px;
+    text-transform: uppercase;
+  }
+  
+  .switch-theme {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    margin-left: 10px;
+  }
+
+  .switch-state{
+    font-family: Glory, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #282828;
+  }
+
+ 
+  
+  
+  

@@ -1,20 +1,30 @@
 .profile-dropdown {
-    position: fixed; 
+    position: absolute; 
     top: 80px; 
-    right: 0px; 
+    right: 5px; 
     background-color: white;
-    border: 2px solid #2c4f2c; 
-    border-radius: 8px;
+    border: .5px solid rgb(151, 149, 149); 
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    padding: 16px;
-    width: 250px;
+    padding: 15px 10px;
+    width: 220px;
     z-index: 999;
+    overflow: hidden;
   }
+
+  .profile-settings, .profile-account{
+    border-bottom: 1.5px solid #cdcdcd;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .log-out, .sign-in{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 10px;
+  }
+
+
   
-  .profile-dropdown h1 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: #2c4f2c;
-    padding-bottom: 5px;
-  }
+  
   
