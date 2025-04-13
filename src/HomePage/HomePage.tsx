@@ -3,12 +3,12 @@ import { FC } from "react";
 import "./HomePage.css";
 import { AboutUs } from "../Components/AboutUs";
 import Gender from "../Components/Gender/Gender";
-import TopNavBar from "../Components/TopNavBar/TopNavBar";
+
 
 export const HomePage: FC = () => {
   return (
     <>
-      <header></header>
+     
       <div
         className="hero-section"
         style={{

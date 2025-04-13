@@ -1,16 +1,14 @@
 .layout-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
     overflow: hidden;
   }
-  
   .layout-main {
     flex: 1;
     margin-top: 80px;  
     padding: 0;       
     overflow-x: hidden; 
+
   }
-  main{
-    margin-top: auto;
-  }
+  

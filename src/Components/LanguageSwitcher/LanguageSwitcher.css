@@ -1,0 +1,20 @@
+.language-switcher {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  #language-select {
+    padding: 12px; 
+    font-size: 18px; 
+    height: 40px; 
+    width: 200px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  #language-select:focus {
+    border-color: #6c63ff;
+  }
+  

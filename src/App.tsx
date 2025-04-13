@@ -11,18 +11,18 @@ import All from "./Pages/All/All";
 import Favourites from "./Pages/Favourites/Favourites";
 import Cart from "./Pages/Cart/Cart";
 import Profile from "./Pages/Profile/Profile";
-import { FAQ } from "./FAQ";
+import PersonalSettings from "./Components/PersonalSettings/PersonalSettings";
+import UserData from "./Components/UserData/UserData";
+import Layout from "./Components/layouts/layouts";
+import { FAQ } from "./Components/FAQ";
 import { Contact } from "./Components/Contact";
-import Layout from "./Components/layouts/Layout";
-
 
 function App() {
   return (
-    <>
-     <Routes>
+  
+    <Routes>
       <Route  element={<Layout />}>
         <Route path="/" element={<HomePage />} />
-
         <Route path="/women" element={<Women />} />
         <Route path="/men" element={<Men />} />
         <Route path="/children" element={<Children />} />
@@ -32,12 +32,13 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
-
-     
+        <Route path="/personalSettings" element={<PersonalSettings />}>
+        {/* Ovo je nested ruta */}
+        <Route path="userData" element={<UserData />} />
+        </Route>
       </Route>
     </Routes>
 
-    </>
   );
 }
 

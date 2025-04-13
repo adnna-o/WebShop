@@ -1,0 +1,30 @@
+.profile-dropdown {
+    position: absolute; 
+    top: 80px; 
+    right: 5px; 
+    background-color: white;
+    border: .5px solid rgb(151, 149, 149); 
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    padding: 15px 10px;
+    width: 220px;
+    z-index: 999;
+    overflow: hidden;
+  }
+
+  .profile-settings, .profile-account{
+    border-bottom: 1.5px solid #cdcdcd;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .log-out, .sign-in{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 10px;
+  }
+
+
+  
+  
+  

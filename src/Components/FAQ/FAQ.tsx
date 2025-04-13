@@ -1,19 +1,15 @@
 import { FC, useEffect, useState } from "react";
 import "./FAQ.css";
-
 interface FAQItem {
   question: string;
   answer: string;
 }
-
 interface FAQCategory {
   title: string;
   questions: FAQItem[];
 }
-
 export const FAQ: FC = () => {
-  const [openCategoryIndex, setOpenCategoryIndex] = useState<number | null>(0); 
-
+  const [openCategoryIndex, setOpenCategoryIndex] = useState<number | null>(0);
   const categories: FAQCategory[] = [
     {
       title: "Shopping",
@@ -26,7 +22,6 @@ export const FAQ: FC = () => {
     },
     {
       title: "Receiving shipment",
-     
       questions: [
         { question: "How long does delivery take?", answer: "Standard shipping takes 3-5 business days." },
         { question: "Can I track my order?", answer: "Yes, tracking information is emailed after shipping." },
@@ -34,7 +29,6 @@ export const FAQ: FC = () => {
     },
     {
       title: "Return of goods",
-     
       questions: [
         { question: "How do I return an item?", answer: "Use the return portal on our website." },
         { question: "Is return shipping free?", answer: "Yes, we provide free return shipping labels." },
@@ -42,18 +36,15 @@ export const FAQ: FC = () => {
     },
     {
       title: "Complaint",
-      
       questions: [
         { question: "How do I file a complaint?", answer: "Contact our support via the help center." },
         { question: "What’s the complaint resolution time?", answer: "Usually within 5-7 business days." },
       ],
     },
   ];
-
   const handleTabClick = (index: number) => {
     setOpenCategoryIndex(index);
   };
-
   return (
     <div className="faq-container">
       <div className="faq-tabs">
@@ -63,12 +54,10 @@ export const FAQ: FC = () => {
             className={`faq-tab ${openCategoryIndex === index ? "active" : ""}`}
             onClick={() => handleTabClick(index)}
           >
-            
             <span>{cat.title}</span>
           </button>
         ))}
       </div>
-
       {openCategoryIndex !== null && (
         <div className="faq-content">
           <h2>{categories[openCategoryIndex].title}</h2>
