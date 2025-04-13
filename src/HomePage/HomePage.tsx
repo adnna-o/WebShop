@@ -18,7 +18,7 @@ export const HomePage: FC = () => {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <p className="hero-subtitle">IN THE MOOD FOR NEW</p>
-          <h1 className="hero-title">STYLE</h1>
+          <p className="hero-title">STYLE</p>
           <button className="hero-button">SHOP NOW</button>
         </div>
       </div>

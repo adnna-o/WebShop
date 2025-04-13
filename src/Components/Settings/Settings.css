@@ -9,7 +9,7 @@
   .link {
     display: block; 
     text-decoration: none;
-    font-family: Glory, sans-serif;
+    font-family: 'Glory', sans-serif;
     font-size: 14px;
     letter-spacing: 1px;
     color: #282828;
@@ -17,7 +17,7 @@
   
   .section-name{
     color: #282828;
-    font-family: Glory, sans-serif;
+    font-family: 'Glory', sans-serif;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -33,7 +33,7 @@
   }
 
   .switch-state{
-    font-family: Glory, sans-serif;
+    font-family: 'Glory', sans-serif;
     font-size: 14px;
     letter-spacing: 1px;
     color: #282828;

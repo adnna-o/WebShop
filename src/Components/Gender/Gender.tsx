@@ -11,7 +11,7 @@ const Gender: FC = () => {
           <span className="category-label">MEN</span>
         </div>
         <div className="category-card kids">
-          <span className="category-label">KIDS</span>
+          <span className="category-label">CHILDREN</span>
         </div>
       </div>
     );

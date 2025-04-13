@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import "./FAQ.css";
 interface FAQItem {
   question: string;

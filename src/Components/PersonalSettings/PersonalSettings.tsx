@@ -1,7 +1,6 @@
 import React from 'react';
 import { MdFavoriteBorder, MdShoppingCart } from 'react-icons/md';
 import './PersonalSettings.css';
-import NavBar from '../TopNavBar/TopNavBar';
 import { Link , Outlet} from 'react-router-dom';
 
 

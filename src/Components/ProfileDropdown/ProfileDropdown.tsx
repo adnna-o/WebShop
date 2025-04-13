@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Account from "../Account/Account";
 import LogOut from "../LogOut/LogOut";
 import Settings from "../Settings/Settings";
@@ -7,7 +7,12 @@ import SignIn from "../SignIn/SignIn";
 
 const ProfileDropdown: React.FC = () => {
   
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    
+    setIsLoggedIn(true); 
+  }, []);
 
   return (
     <div className="profile-dropdown">
