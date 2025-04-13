@@ -2,31 +2,40 @@
     display: flex;
     flex-direction: row; 
     align-items: flex-start; 
-    font-family: sans-serif;
+    margin-bottom: 10px;
+
+    
+  }
+
+  .section-title{
+    color: #282828;
+    font-family: Glory, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 0 0 20px 10px;
+    text-transform: uppercase;
   }
   
-  .account-icon {
-    font-size: 2.5rem;
-    color: #2c4f2c;
-    margin-right: 12px;
-  }
+  
   
   .account-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: 10px;
   }
   
   .account-name {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 4px;
-    font-weight: normal;
+    font-family: Glory, sans-serif;
+    color:#282828;
+    padding-bottom: 10px;
+   
   }
   
   .account-email {
     font-size: 14px;
     color: #666;
     font-weight: normal; 
-  }
   
+  }

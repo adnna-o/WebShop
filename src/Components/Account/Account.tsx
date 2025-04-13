@@ -1,7 +1,6 @@
 import React from 'react';
-import { CgProfile } from "react-icons/cg";
 import './Account.css'; 
-import NavBar from '../TopNavBar/TopNavBar';
+import ProfileIcon from '../ProfileIcon/ProfileIcon';
 
 
 interface AccountProps {
@@ -13,9 +12,9 @@ interface AccountProps {
 const Account: React.FC<AccountProps> = ({ ime, prezime, email }) => {
   return (
     <>
-    <h1>Account</h1>
+    <div className="section-title">Account</div>
     <div className="account-section">
-      <CgProfile className="account-icon" />
+      <div className="account-icon"><ProfileIcon width = {60} height = {60} /></div>
       <div className="account-info">
         <span className="account-name">{ime} {prezime}</span>
         <span className="account-email">{email}</span>
