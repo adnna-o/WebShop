@@ -8,7 +8,7 @@ import Gender from "../Components/Gender/Gender";
 export const HomePage: FC = () => {
   return (
     <>
-      <header></header>
+     
       <div
         className="hero-section"
         style={{

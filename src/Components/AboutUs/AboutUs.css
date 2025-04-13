@@ -1,34 +1,33 @@
 .promo-section {
-    height: 100vh;
-    background-image: url('/public/images/parallexBg.webp'); /* Ako nije već dodano */
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    text-align: center;
-    position: relative;
-  }
-  
-  .promo-content {
-    background-color: rgba(0, 0, 0, 0.6); 
-    padding: 40px;
-    max-width: 800px;
-    border-radius: 12px;
-    color: white;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  }
-  
-  .promo-content h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  
-  .promo-content p {
-    font-size: 16px;
-    line-height: 1.6;
-  }
-  
+  height: 100vh;
+  background-image: url('/public/images/parallexBg.webp'); 
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 20px;
+}
+
+.promo-content {
+  max-width: 800px;
+  background-color: white;
+  padding: 40px 50px;
+  border-radius: 20px;
+  border: 3px solid #6c63ff;
+}
+
+.promo-content h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: blue;
+  font-family: 'Monoton', cursive;
+}
+
+.promo-content p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+}
