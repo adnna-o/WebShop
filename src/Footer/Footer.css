@@ -50,19 +50,20 @@
 
   .customer {
     display: flex;
-    flex-direction: column; /* Raspoređuje linkove jedan ispod drugog */
-    align-items: center; /* Poravnava linkove sa početkom (levo) */
-    gap: 10px; /* Razmak između linkova */
+    flex-direction: column; 
+    align-items: center; 
+   
   }
 
   .customer a {
-    color: white; /* Postavi boju linka */
-    text-decoration: none; /* Ukloni podvlačenje */
-    font-weight: bold; /* Ojačaj tekst */
-    padding: 5px 0; /* Dodaj razmak unutar linka */
+    color: white; 
+    text-decoration: none; 
+
+    padding: 5px 0; 
   }
-  
-  .customer a:hover {
-    color: #f1f1f1; /* Promeni boju na hover */
+  .legal a{
+    text-decoration: none;
+    color: white;
   }
+
   

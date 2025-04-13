@@ -13,7 +13,7 @@ export const AboutUs: FC = () => {
           range of modern clothing options that are both functional and
           fashionable, and we aim to make our customers lives easier by
           delivering exceptional service and exceptional products at affordable
-          prices.{" "}
+          prices.
         </p>
         <p>
           Our vision is to become the go-to online destination for quality and

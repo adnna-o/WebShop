@@ -1,10 +1,16 @@
 .layout-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* koristi minimum visinu */
+    height: 100vh;
+    overflow: hidden;
   }
   
   .layout-main {
     flex: 1;
-    padding: 100px 20px 60px; /* donji padding sad može biti manji */
+    margin-top: 80px;  
+    padding: 0;       
+    overflow-x: hidden; 
+  }
+  main{
+    margin-top: auto;
   }

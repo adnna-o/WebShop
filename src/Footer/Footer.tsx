@@ -1,6 +1,5 @@
 import { FC } from "react";
 import "./Footer.css";
-import { FAQ } from "../FAQ";
 import { Link } from "react-router-dom";
 import {
   FaFacebook,
@@ -62,42 +61,20 @@ export const Footer: FC = () => {
           </div>
           <div className="customer">
             <h2>Customer support</h2>
-            <Link
-              to="/faq?open=true"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Freuqently Asked Questions
-            </Link>
-            <Link
-              to="/contact"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Contact us
-            </Link>
+            <Link to="/faq?open=true">Freuqently Asked Questions</Link>
+            <Link to="/contact">Contact us</Link>
           </div>
           <div className="legal">
             <h2>Legal agreement</h2>
-            <a
-              href="/privacy-policy.pdf"
-              download
-              style={{ textDecoration: "none", color: "white" }}
-            >
+            <a href="/privacy-policy.pdf" download>
               Privacy Policy
             </a>
             <br />
-            <a
-              href="/terms-of-service.pdf"
-              download
-              style={{ textDecoration: "none", color: "white" }}
-            >
+            <a href="/terms-of-service.pdf" download>
               Terms of Service
             </a>
             <br />
-            <a
-              href="/cookie-policy.pdf"
-              download
-              style={{ textDecoration: "none", color: "white" }}
-            >
+            <a href="/cookie-policy.pdf" download>
               Cookie Policy
             </a>
           </div>
