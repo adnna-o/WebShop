@@ -2,6 +2,7 @@
   display: flex;
   margin: 50px;
   padding: 0 70px;
+  gap: 20px;
 }
 
 .category-card {
@@ -10,27 +11,17 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  position: relative;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  transition: filter 0.3s ease-in-out;
+ 
 }
 
-.category-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.4); 
-  z-index: 1;
-}
-
-.category-card:hover::before {
-  opacity: 0;
+.category-card:hover {
+  filter: brightness(70%);
 }
 
 .category-label {
@@ -39,24 +30,20 @@
   font-weight: bold;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
-  z-index: 2;
-  position: relative;
 }
 
 .category-card:hover .category-label {
   opacity: 1;
 }
 
+.women {
+  background-image: url("/public/images/women.webp");
+}
 
-  .women {
-    background-image: url("/public/images/women.webp");
-  }
-  
-  .men {
-    background-image: url("/public/images/men.webp");
-  }
-  
-  .kids {
-    background-image: url("/public/images/children.webp");
-  }
-  
+.men {
+  background-image: url("/public/images/men.webp");
+}
+
+.kids {
+  background-image: url("/public/images/children.webp");
+}

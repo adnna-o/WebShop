@@ -1,62 +1,54 @@
 .hero-section {
+  display: grid;
+  background-image: url("/public/images/parallexBg.webp");
   background-size: cover;
   background-position: center top 35%;
-  display: flex;
-  align-items: center;
-  padding-left: 100px;
-  color: white;
+  height: 500px;
   overflow: hidden;
-  height: 500px;
 }
-
-
 .hero-overlay {
-  position: absolute;
-  top: 80px;
-  left: 0;
+  background-color: rgba(60, 60, 60, 0);
+  grid-area: 1 / 1;
   width: 100%;
-  height: 500px;
-  background-color: rgba(60, 60, 60, 0); 
-  pointer-events: none; 
-  z-index: 1;
+  height: 100%;
 }
-
-
 .hero-section:hover .hero-overlay {
-  background-color: rgba(60, 60, 60, 0.4); 
+  background-color: rgba(60, 60, 60, 0.4);
 }
-
 .hero-content {
-  z-index: 2; 
+  grid-area: 1 / 1;
+  padding-left: 100px;
+  padding-top: 50px;
+  color: white;
 }
-
-.hero-subtitle{
+.hero-subtitle {
   color: white;
   font-size: 30px;
   margin-bottom: 0;
+  margin-top: 50px;
   letter-spacing: 3px;
 }
-.hero-title{
+.hero-title {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 80px;
-  margin-top: -15px;
+  font-weight: 600;
   margin-bottom: 0;
+  margin-top: 0;
   font-weight: 600;
   letter-spacing: 3px;
-  
 }
-.hero-button{
+.hero-button {
   color: black;
   background-color: white;
   border: 0;
   border-radius: 5px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   padding: 20px 40px;
   margin-top: 20px;
   height: 50px;
   width: 200px;
   font-family: sans-serif;
-  font-size: 14px;
   font-weight: 600;
+  cursor: pointer;
 }
