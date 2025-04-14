@@ -5,7 +5,7 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px; /*razmak izmedju kolona umjesto margin*/
+    gap: 20px; 
   }
   
   .settings-title {

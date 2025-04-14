@@ -1,13 +1,12 @@
 .link-container {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* razmak između linkova */
+    gap: 15px; 
     margin-left: 10px;
 
   }
   
   .link {
-    display: block; 
     text-decoration: none;
     font-family: 'Glory', sans-serif;
     font-size: 14px;
@@ -26,9 +25,6 @@
   }
   
   .switch-theme {
-    display: flex;
-    align-items: center;
-    gap: 10px; 
     margin-left: 10px;
   }
 

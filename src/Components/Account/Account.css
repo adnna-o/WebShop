@@ -1,9 +1,6 @@
 .account-section {
     display: flex;
-    flex-direction: row; 
     align-items: flex-start; 
-    margin-bottom: 10px;
-
     
   }
 
@@ -17,8 +14,7 @@
     text-transform: uppercase;
   }
   
-  
-  
+
   .account-info {
     display: flex;
     flex-direction: column;

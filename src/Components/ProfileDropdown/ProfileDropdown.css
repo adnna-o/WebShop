@@ -25,6 +25,16 @@
   }
 
 
-  
+  @media (max-width: 480px) {
+    .profile-dropdown{
+      top:60px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .profile-dropdown{
+      top:60px;
+    }
+  }
   
   
