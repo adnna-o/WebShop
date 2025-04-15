@@ -3,6 +3,7 @@
     margin: 40px auto;
     padding: 20px;
     font-family: Arial, sans-serif;
+    background-color: (--cart-bg);
   }
   .faq-tabs {
     display: flex;
@@ -14,8 +15,8 @@
     flex: 1;
     padding: 20px;
     border: none;
-    background-color: #CFCFCF;
-    color: #000;
+    background-color:var(--dark-transparent-3);;
+    color: var(--primary-text);
     text-align: center;
     font-weight: bold;
     font-size: 16px;
@@ -31,7 +32,7 @@
     font-size: 24px;
   }
   .faq-tab.active {
-    background-color: #C9C3FC;
+    background-color:var(--selected-tab);
     color: black;
   }
   .faq-content h2 {
@@ -39,11 +40,11 @@
     font-size: 24px;
   }
   .faq-question-block {
-    border: 1px solid #999;
+    border: 1px solid var(--primary-text);
     margin-bottom: 15px;
     padding: 10px 15px;
     border-radius: 4px;
-    background-color: #FDFDFD;
+   
   }
   .faq-question-block details summary {
     cursor: pointer;
@@ -52,5 +53,5 @@
   }
   .faq-question-block p {
     margin-top: 10px;
-    color: #444;
+    color:var(--primary-text);
   }

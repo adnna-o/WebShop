@@ -2,8 +2,8 @@
     position: absolute; 
     top: 80px; 
     right: 5px; 
-    background-color: white;
-    border: .5px solid rgb(151, 149, 149); 
+    background-color: var(--nav-bg);
+    border: .5px solid var(--search-border-bottom);
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     padding: 15px 10px;
