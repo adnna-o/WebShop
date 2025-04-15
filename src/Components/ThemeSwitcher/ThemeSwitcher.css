@@ -1,0 +1,10 @@
+.switch{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.switch-state{
+    margin-left: 10px;
+}

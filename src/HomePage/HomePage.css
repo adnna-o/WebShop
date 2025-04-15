@@ -1,0 +1,54 @@
+.hero-section {
+  display: grid;
+  background-image: url("/public/images/parallexBg.webp");
+  background-size: cover;
+  background-position: center top 35%;
+  height: 500px;
+  overflow: hidden;
+}
+.hero-overlay {
+  background-color: rgba(60, 60, 60, 0);
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+}
+.hero-section:hover .hero-overlay {
+  background-color: rgba(60, 60, 60, 0.4);
+}
+.hero-content {
+  grid-area: 1 / 1;
+  padding-left: 100px;
+  padding-top: 50px;
+  color: white;
+}
+.hero-subtitle {
+  color: white;
+  font-size: 30px;
+  margin-bottom: 0;
+  margin-top: 50px;
+  letter-spacing: 3px;
+}
+.hero-title {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 80px;
+  font-weight: 600;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+.hero-button {
+  color: black;
+  background-color: white;
+  border: 0;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 20px 40px;
+  margin-top: 20px;
+  height: 50px;
+  width: 200px;
+  font-family: sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
