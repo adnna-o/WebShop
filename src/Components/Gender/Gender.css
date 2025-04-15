@@ -37,13 +37,23 @@
 }
 
 .women {
-  background-image: url("/public/images/women.webp");
+  background: var(--home-image-bg) url(/public/images/women.webp);
+  background-blend-mode: darken;
+  background-size: cover;
+  background-position: center;
 }
 
 .men {
-  background-image: url("/public/images/men.webp");
+  background: var(--home-image-bg) url(/public/images/men.webp);
+  background-blend-mode: darken;
+  background-size: cover;
+  background-position: center;
 }
 
 .kids {
-  background-image: url("/public/images/children.webp");
+  background: var(--home-image-bg) url(/public/images/children.webp);
+  background-blend-mode: darken;
+  background-size: cover;
+  background-position: center;
 }
+

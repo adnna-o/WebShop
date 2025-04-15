@@ -11,11 +11,11 @@
     font-family: 'Glory', sans-serif;
     font-size: 14px;
     letter-spacing: 1px;
-    color: #282828;
+    color: var(--primary-color-1);
   }
   
   .section-name{
-    color: #282828;
+    color: var(--primary-color-1);
     font-family: 'Glory', sans-serif;
     font-size: 12px;
     font-weight: 600;
@@ -32,7 +32,7 @@
     font-family: 'Glory', sans-serif;
     font-size: 14px;
     letter-spacing: 1px;
-    color: #282828;
+    color: var(--primary-color-1);
   }
 
  

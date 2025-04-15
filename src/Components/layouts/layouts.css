@@ -3,6 +3,7 @@
   flex-direction: column;
   min-height: 100vh;
     overflow: hidden;
+    background-color: var(--home-bg);
   }
   .layout-main {
     flex: 1;

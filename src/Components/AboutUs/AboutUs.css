@@ -33,7 +33,7 @@
 
 
 .promo-card {
-  background-color: white;
+  background-color:var(--parallex-card);
   border-radius: 20px 0 20px 0;
   padding: 10px;
   width: 40%;
@@ -41,13 +41,13 @@
 }
 
 .promo-card-border {
-  border: 3px solid #6c63ff;
+  border: 3px solid var(--logo-purple);
   border-radius: 20px 0 20px 0;
   padding: 30px 40px;
 }
 
 .promo-title {
-  color: #6c63ff;
+  color:var(--logo-purple);
   font-family: 'Train One', cursive;
   font-size: 22px;
   font-weight: 500;
@@ -56,7 +56,7 @@
 }
 
 .promo-description {
-  color: #5b5b5b;
+  color: var(--parallex-text);
   font-family: 'Glory', sans-serif;
   font-size: 18px;
   text-align: center;
