@@ -3,6 +3,7 @@ import { FC } from "react";
 import "./HomePage.css";
 import { AboutUs } from "../Components/AboutUs";
 import Gender from "../Components/Gender/Gender";
+import News from "../Components/News/News";
 
 
 export const HomePage: FC = () => {
@@ -24,6 +25,7 @@ export const HomePage: FC = () => {
       </div>
       <Gender />
       <AboutUs />
+      <News/>
 
     </>
   );
