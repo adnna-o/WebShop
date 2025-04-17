@@ -6,10 +6,13 @@ import CartIcon from '../CartIcon/CartIcon';
 import FavouritesIcon from '../FavouritesIcon/FavouritesIcon';
 import ProfileIcon from '../ProfileIcon/ProfileIcon';
 import MenuIcon from '../MenuIcon/MenuIcon';
+import { useTranslation } from 'react-i18next';
 
 const NavBar: React.FC = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+   const {t} = useTranslation();
 
   const toggleDropdown = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -28,10 +31,10 @@ const NavBar: React.FC = () => {
             <img src="/images/qsd_logo.png" alt="Logo" className="logo-img" />
           </Link>
           <div className="desktop-links">
-          <NavLink to="/women" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}> Women </NavLink>
-          <NavLink to="/men" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}> Men </NavLink>
-          <NavLink to="/children"className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}> Children </NavLink>
-          <NavLink to="/all"className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}> All </NavLink>
+          <NavLink to="/women" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}> {t('women').toString()} </NavLink>
+          <NavLink to="/men" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}> {t('men').toString()} </NavLink>
+          <NavLink to="/children"className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}> {t('children').toString()}</NavLink>
+          <NavLink to="/all"className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>{t('all').toString()} </NavLink>
           </div>
         </div>
 

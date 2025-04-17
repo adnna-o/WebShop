@@ -24,6 +24,16 @@
     margin-left: 10px;
   }
 
+  .admin-panel{
+    padding-top: 20px;
+    padding-bottom: 10px;
+    margin-left: 10px;
+    text-decoration: none;
+    font-family: 'Glory', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: var(--primary-color-1);
+  }
 
   @media (max-width: 480px) {
     .profile-dropdown{

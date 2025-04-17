@@ -4,9 +4,12 @@ import LogOut from "../LogOut/LogOut";
 import Settings from "../Settings/Settings";
 import "./ProfileDropdown.css";
 import SignIn from "../SignIn/SignIn";
+import { Link } from "react-router-dom";
+
 
 const ProfileDropdown: React.FC = () => {
-  
+
+ 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -24,6 +27,7 @@ const ProfileDropdown: React.FC = () => {
           <div className="profile-settings">
             <Settings />
           </div>
+          <Link to="/adminPanel" className="admin-panel">Admin panel</Link>
           <div className="log-out">
             <LogOut />
           </div>
