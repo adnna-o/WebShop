@@ -3,6 +3,7 @@ import { FC } from "react";
 import "./HomePage.css";
 import { AboutUs } from "../Components/AboutUs";
 import Gender from "../Components/Gender/Gender";
+import News from "../Components/News/News";
 import { useTranslation } from "react-i18next";
 
 
@@ -24,6 +25,7 @@ export const HomePage: FC = () => {
       </div>
       <Gender />
       <AboutUs />
+      <News/>
 
     </>
   );
