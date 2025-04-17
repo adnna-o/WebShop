@@ -3,18 +3,23 @@ import Account from "../Account/Account";
 import LogOut from "../LogOut/LogOut";
 import Settings from "../Settings/Settings";
 import "./ProfileDropdown.css";
-import SignIn from "../SignIn/SignIn";
 import { Link } from "react-router-dom";
+import SignIn from "../../Pages/SignIn/SignIn";
 
 
 const ProfileDropdown: React.FC = () => {
 
  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    
-    setIsLoggedIn(true); 
+    const storedUser = localStorage.getItem('user');
+    const storedUserObj = storedUser ? JSON.parse(storedUser) : null;
+    if(storedUser)
+      setIsLoggedIn(true); 
+    if(storedUserObj.role==="admin")
+      setIsAdmin(true);
   }, []);
 
   return (
@@ -27,7 +32,8 @@ const ProfileDropdown: React.FC = () => {
           <div className="profile-settings">
             <Settings />
           </div>
-          <Link to="/adminPanel" className="admin-panel">Admin panel</Link>
+          {isAdmin ? (
+          <Link to="/adminPanel" className="admin-panel">Admin panel</Link>) : null}
           <div className="log-out">
             <LogOut />
           </div>
@@ -38,7 +44,7 @@ const ProfileDropdown: React.FC = () => {
             <Settings />
           </div>
           <div className="sign-in">
-           <SignIn/> 
+          <Link to="/signIn" className="sign-in">SignIn</Link>
           </div>
         </>
       )}
