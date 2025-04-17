@@ -8,8 +8,12 @@ import {
   FaTwitter,
   FaTiktok,
 } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 export const Footer: FC = () => {
+
+   const {t} = useTranslation();
+   
   return (
     <div className="footer">
       <div className="main-div">
@@ -60,27 +64,27 @@ export const Footer: FC = () => {
             <span>UK +44 20 3290 1563 (LND)</span>
           </div>
           <div className="customer">
-            <h2>Customer support</h2>
-            <Link to="/faq?open=true">Freuqently Asked Questions</Link>
-            <Link to="/contact">Contact us</Link>
+            <h2>{t('customerSupport')}</h2>
+            <Link to="/faq?open=true">{t('question')}</Link>
+            <Link to="/contact">{t('contact')}</Link>
           </div>
           <div className="legal">
-            <h2>Legal agreement</h2>
+            <h2>{t('agreement')}</h2>
             <a href="/privacy-policy.pdf" download>
-              Privacy Policy
+            {t('policy')}
             </a>
             <br />
             <a href="/terms-of-service.pdf" download>
-              Terms of Service
+            {t('terms')}
             </a>
             <br />
             <a href="/cookie-policy.pdf" download>
-              Cookie Policy
+            {t('cookie')}
             </a>
           </div>
         </div>
         <div className="third-div">
-          <h3>Copyright © 2025 QSD BH. All Rights Reserved</h3>
+          <h3>{t('copyright')}</h3>
         </div>
       </div>
     </div>
