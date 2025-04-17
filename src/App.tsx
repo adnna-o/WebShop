@@ -15,6 +15,10 @@ import UserData from "./Components/UserData/UserData";
 import Layout from "./Components/layouts/layouts";
 import { FAQ } from "./Components/FAQ";
 import { Contact } from "./Components/Contact";
+import AdminPanel from "./Pages/AdminPanel/AdminPanel";
+import LogIn from "./Pages/LogIn/LogIn";
+import SignIn from "./Pages/SignIn/SignIn";
+
 
 function App() {
   return (
@@ -35,6 +39,9 @@ function App() {
         {/* Ovo je nested ruta */}
         <Route path="userData" element={<UserData />} />
         </Route>
+        <Route path="/adminPanel" element={<AdminPanel />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/signIn" element={<SignIn/>} />
       </Route>
     </Routes>
 

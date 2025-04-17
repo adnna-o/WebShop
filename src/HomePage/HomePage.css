@@ -1,6 +1,7 @@
 .hero-section {
   display: grid;
-  background-image: url("/public/images/parallexBg.webp");
+  background: var(--home-image-bg) url(/public/images/web_shop1.webp);
+  background-blend-mode: darken;
   background-size: cover;
   background-position: center top 35%;
   height: 500px;
@@ -19,14 +20,15 @@
   grid-area: 1 / 1;
   padding-left: 100px;
   padding-top: 50px;
-  color: white;
+  color: var(--primary-color);
 }
 .hero-subtitle {
-  color: white;
+  color: var(--primary-color);
   font-size: 30px;
   margin-bottom: 0;
   margin-top: 50px;
   letter-spacing: 3px;
+  text-transform: uppercase;
 }
 .hero-title {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -36,10 +38,11 @@
   margin-top: 0;
   font-weight: 600;
   letter-spacing: 3px;
+  text-transform: uppercase;
 }
 .hero-button {
-  color: black;
-  background-color: white;
+  color: var(--primary-color-1);
+  background-color: var(--primary-color);
   border: 0;
   border-radius: 5px;
   font-weight: bold;
@@ -51,4 +54,5 @@
   font-family: sans-serif;
   font-weight: 600;
   cursor: pointer;
+  text-transform: uppercase;
 }

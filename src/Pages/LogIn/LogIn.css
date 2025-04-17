@@ -1,0 +1,85 @@
+
+.login-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+
+  .login-main {
+    background-color: var(--primary-color);
+    border-radius: 0 20px 0 20px;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, .2);
+    height: auto;
+    padding: 10px 50px 30px;
+    width: 300px;
+  }
+
+  .login-img {
+    height: 100%;
+    width: 100%;
+  }
+  
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .login-form input {
+    background-color: var(--auth-input);
+    border: 1px solid var(--auth-input-border);
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: var(--logo-purple);
+    height: 30px;
+    margin: 0 0 10px;
+    padding: 0 10px;
+    position: relative;
+    width: 100%;
+  }
+  
+
+  button {
+    background-color: var(--logo-purple);
+    border: none;
+    border-radius: 5px;
+    color: var(--white);
+    height: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+  }
+  
+
+  .login-info {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .login-info a {
+    color: var(--logo-purple);
+    text-decoration: none;
+  }
+  
+  .password-container {
+    position: relative; 
+    width: 100%; 
+  }
+  
+  .password {
+    width: 100%;
+    padding-right: 30px; 
+  }
+  
+  .show-password {
+    position: absolute; 
+    right: 10px; 
+    top: 50%;
+    transform: translateY(-50%); 
+    cursor: pointer; 
+  }
+  
+  
