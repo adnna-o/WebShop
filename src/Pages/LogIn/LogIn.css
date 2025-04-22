@@ -36,7 +36,6 @@
     box-sizing: border-box;
     color: var(--logo-purple);
     height: 30px;
-    margin: 0 0 10px;
     padding: 0 10px;
     position: relative;
     width: 100%;
@@ -81,5 +80,24 @@
     transform: translateY(-50%); 
     cursor: pointer; 
   }
+
+  .error-text {
+    color: var(--auth-error-primary);
+    font-size: 11px;
+    margin-top: -8px;
+  }
+  
+  .input-error {
+    background-color: var(--auth-error-bg) !important;
+    border: 1px solid var(--auth-error-primary) !important;;
+    color: var(--auth-error-primary) !important;;
+   
+  }
+  
+  button:disabled{
+    cursor: not-allowed;
+    opacity: .5;
+  }
+  
   
   

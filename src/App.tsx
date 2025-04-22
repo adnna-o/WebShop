@@ -18,12 +18,17 @@ import { Contact } from "./Components/Contact";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 import LogIn from "./Pages/LogIn/LogIn";
 import SignIn from "./Pages/SignIn/SignIn";
+
 import Products from "./Pages/Products/Products";
 import Categories from "./Pages/Categories/Categories";
 import Brands from "./Pages/Brands/Brands";
 import Colors from "./Pages/Colors/Colors";
 import Sizes from "./Pages/Sizes/Sizes";
 import Discounts from "./Pages/Discounts/Discounts";
+
+import SendCode from "./Pages/SendCode/SendCode";
+
+
 
 function App() {
   return (
@@ -44,6 +49,7 @@ function App() {
           <Route path="userData" element={<UserData />} />
         </Route>
       </Route>
+
       {/*RUTE ZA ADMINA */}
       <Route path="/adminPanel" element={<AdminPanel />}>
         <Route path="products" element={<Products />} />
@@ -53,11 +59,13 @@ function App() {
         <Route path="brands" element={<Brands />} />
         <Route path="colors" element={<Colors />} />
         <Route path="sizes" element={<Sizes />} />
-
-
       </Route>
+
+     
       <Route path="/login" element={<LogIn />} />
-      <Route path="/signIn" element={<SignIn />} />
+      <Route path="/register" element={<SignIn/>} />
+      <Route path="/sendCode" element={<SendCode/>} />
+  
     </Routes>
   );
 }
