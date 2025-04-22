@@ -42,7 +42,7 @@ export const Cards: FC = () => {
                   </div>
                   <div className="card-buttons">
                     <button className="heart-btn">
-                      <FaHeart color=" #6c63ff;" size={18} />
+                      <FaHeart color=" #6c63ff" size={18} />
                     </button>
                     <button className="buy-btn">{t("buy-btn")}</button>
                   </div>
