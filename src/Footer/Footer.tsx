@@ -84,6 +84,7 @@ export const Footer: FC = () => {
           </div>
         </div>
         <div className="third-div">
+        <div className="divider"></div>
           <h3>{t('copyright')}</h3>
         </div>
       </div>
