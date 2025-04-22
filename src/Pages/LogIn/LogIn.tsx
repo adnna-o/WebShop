@@ -6,6 +6,8 @@ import { login } from '../../Redux/slices/authSlice';
 import EyeIcon from '../../Components/EyeIcon/EyeIcon';
 import "./LogIn.css";
 import EyeOffIcon from '../../Components/EyeOffIcon/EyeOffIcon';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Login = () => {
@@ -73,28 +75,31 @@ const Login = () => {
     if (!isFormValid()) return;
 
     try {
+
       const result = await dispatch(login(form)).unwrap();
       navigate('/sendCode');
-    } catch (err: any) {
-      console.log(err)
-      setErrors({ backend: err?.message || 'There was an error with your password or email.Please try again.' });
 
-      setTimeout(() => {
-        setErrors({});
-      }, 3000);
+    } catch (err: any) {
+      
+      console.log(err);
+      const errorMessage = err?.message || 'Došlo je do greške sa emailom ili lozinkom. Pokušajte ponovo.';
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored"
+      });
+
     }
   };
 
   return (
     <>
     <div className='login-modal'>
-      <div className='alert-container'>
-        <div className='alert-box'>
-          <div className='alert'>
-            <div>There was an error with your email or password. Please try again.</div>
-          </div>
-          <button className='close-button'></button>
-        </div></div>
+    <ToastContainer/>
       <div className='login-main'>
         <img className="login-img" src="/images/login-removebg-preview.png" alt="Login" />
         <form className='login-form' onSubmit={handleLogin}>
@@ -126,8 +131,7 @@ const Login = () => {
             </span>
           </div>
           {errors.password && <span className="error-text">{errors.password}</span>}
-          
-
+  
           <button type="submit" disabled={!isFormValid()}>Login</button>
         </form>
 
