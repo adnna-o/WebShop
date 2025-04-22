@@ -1,81 +1,144 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import "./LogIn.css";
+import { AppDispatch } from '../../Redux/store';
+import { login } from '../../Redux/slices/authSlice';
 import EyeIcon from '../../Components/EyeIcon/EyeIcon';
+import "./LogIn.css";
+import EyeOffIcon from '../../Components/EyeOffIcon/EyeOffIcon';
 
-const LogIn: React.FC = () => {
+
+const Login = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-  });
+  const [form, setForm] = useState({ email: '', password: '' });
+  const [errors, setErrors] = useState<{ email?: string; password?: string; backend?: string }>({});
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const validateEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   };
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+  const validatePassword = (password: string) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    return regex.test(password);
+  };
 
-    const storedUser = localStorage.getItem('user');
 
-    if (!storedUser) {
-      alert("No account found. Please sign up first.");
-      return;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  
+    if (name === 'email') {
+      setErrors((prev) => ({
+        ...prev,
+        email: value.trim() === '' ? 'Required field, invalid email format' : validateEmail(value) ? '' : 'Required field, invalid email format',
+      }));
     }
+  
+    if (name === 'password') {
+      setErrors((prev) => ({
+        ...prev,
+        password: value.trim() === '' ? 'Password must be at least 8 characters long, include upper and lower case letters, a number, and a special character.' : validatePassword(value)
+          ? ''
+          : 'Password must be at least 8 characters long, include upper and lower case letters, a number, and a special character.',
+      }));
+    }
+  };
 
-    const user = JSON.parse(storedUser);
-
-    if (form.email === user.email && form.password === user.password) {
-     
-      if (user.role === 'admin') {
-        navigate('/adminPanel');
-      } else {
-        navigate('/');
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      
+      const { name, value } = e.target;
+    
+      if (name === 'email' && !validateEmail(value)) {
+        setErrors((prev) => ({ ...prev, email: 'Required field, invalid email format.' }));
       }
-    } else {
-      alert("Invalid email or password.");
+    
+      if (name === 'password' && !validatePassword(value)) {
+        setErrors((prev) => ({
+          ...prev,
+          password: 'Password must have at least 8 characters, one capital letter, one small letter, one number, and one special character.',
+        }));
+      }  
+    };
+
+    const isFormValid = () =>
+      Object.values(errors).every((err) => err === '') &&
+      Object.values(form).every((field) => field.trim() !== '');
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isFormValid()) return;
+
+    try {
+      const result = await dispatch(login(form)).unwrap();
+      navigate('/sendCode');
+    } catch (err: any) {
+      console.log(err)
+      setErrors({ backend: err?.message || 'There was an error with your password or email.Please try again.' });
+
+      setTimeout(() => {
+        setErrors({});
+      }, 3000);
     }
   };
 
   return (
+    <>
     <div className='login-modal'>
+      <div className='alert-container'>
+        <div className='alert-box'>
+          <div className='alert'>
+            <div>There was an error with your email or password. Please try again.</div>
+          </div>
+          <button className='close-button'></button>
+        </div></div>
       <div className='login-main'>
         <img className="login-img" src="/images/login-removebg-preview.png" alt="Login" />
         <form className='login-form' onSubmit={handleLogin}>
           <input
-            className='email'
+            className={`email ${errors.email ? 'input-error' : ''}`}
             type="email"
             name="email"
             placeholder='Email address'
             value={form.email}
             onChange={handleChange}
+            onBlur={handleBlur}
             required
           />
+          {errors.email && <span className="error-text">{errors.email}</span>}
+
           <div className='password-container'>
             <input
-              className='password'
-              type="password"
+              className={`password ${errors.password ? 'input-error' : ''}`}
+              type={showPassword ? 'text' : 'password'}
               name="password"
               placeholder='Password'
               value={form.password}
               onChange={handleChange}
+              onBlur={handleBlur}
               required
             />
-            <span className='show-password'>
-             <EyeIcon/>
+            <span className='show-password' onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? <EyeOffIcon /> : <EyeIcon />}
             </span>
           </div>
-          <button type="submit">Login</button>
+          {errors.password && <span className="error-text">{errors.password}</span>}
+          
+
+          <button type="submit" disabled={!isFormValid()}>Login</button>
         </form>
+
         <div className='login-info'>
           <a href='/signIn'>Go to Sign up</a>
           <a href='/forgotPassword'>Forgot password?</a>
         </div>
       </div>
     </div>
+    </>
   );
 };
 
-export default LogIn;
+export default Login;

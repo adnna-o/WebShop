@@ -18,6 +18,7 @@ import { Contact } from "./Components/Contact";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 import LogIn from "./Pages/LogIn/LogIn";
 import SignIn from "./Pages/SignIn/SignIn";
+import SendCode from "./Pages/SendCode/SendCode";
 
 
 function App() {
@@ -39,10 +40,11 @@ function App() {
         {/* Ovo je nested ruta */}
         <Route path="userData" element={<UserData />} />
         </Route>
-        <Route path="/adminPanel" element={<AdminPanel />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/signIn" element={<SignIn/>} />
       </Route>
+      <Route path="/adminPanel" element={<AdminPanel />} />
+      <Route path="/login" element={<LogIn />} />
+      <Route path="/register" element={<SignIn/>} />
+      <Route path="/sendCode" element={<SendCode/>} />
     </Routes>
 
   );
