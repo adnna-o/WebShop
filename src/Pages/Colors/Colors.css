@@ -1,0 +1,56 @@
+.color-main {
+    padding: 20px;
+  }
+  
+  .color_add_item {
+    margin-bottom: 16px;
+  }
+  
+  .btn-addColor {
+    color: #282828;
+    padding: 8px 16px;
+    border: none;
+    background-color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .color_table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .color_table th,
+  .color_table td {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .color-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+  }
+  
+  .color-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .btn-options {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-options.delete {
+    background-color: #d10f0f;
+    color: #fff;
+  }
+  
+  .btn-options:not(.delete) {
+    background-color: #2e7d2e;
+    color: #fff;
+  }
+  

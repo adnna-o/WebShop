@@ -18,13 +18,17 @@ import { Contact } from "./Components/Contact";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 import LogIn from "./Pages/LogIn/LogIn";
 import SignIn from "./Pages/SignIn/SignIn";
-
+import Products from "./Pages/Products/Products";
+import Categories from "./Pages/Categories/Categories";
+import Brands from "./Pages/Brands/Brands";
+import Colors from "./Pages/Colors/Colors";
+import Sizes from "./Pages/Sizes/Sizes";
+import Discounts from "./Pages/Discounts/Discounts";
 
 function App() {
   return (
-  
     <Routes>
-      <Route  element={<Layout />}>
+      <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/women" element={<Women />} />
         <Route path="/men" element={<Men />} />
@@ -36,15 +40,25 @@ function App() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/personalSettings" element={<PersonalSettings />}>
-        {/* Ovo je nested ruta */}
-        <Route path="userData" element={<UserData />} />
+          {/* Ovo je nested ruta */}
+          <Route path="userData" element={<UserData />} />
         </Route>
-        <Route path="/adminPanel" element={<AdminPanel />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/signIn" element={<SignIn/>} />
       </Route>
-    </Routes>
+      {/*RUTE ZA ADMINA */}
+      <Route path="/adminPanel" element={<AdminPanel />}>
+        <Route path="products" element={<Products />} />
+        <Route path="discounts" element={<Discounts />} />
 
+        <Route path="categories" element={<Categories />} />
+        <Route path="brands" element={<Brands />} />
+        <Route path="colors" element={<Colors />} />
+        <Route path="sizes" element={<Sizes />} />
+
+
+      </Route>
+      <Route path="/login" element={<LogIn />} />
+      <Route path="/signIn" element={<SignIn />} />
+    </Routes>
   );
 }
 
