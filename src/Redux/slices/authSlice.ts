@@ -42,8 +42,9 @@ export const login = createAsyncThunk<any, { email: string; password: string }, 
         const response = await api.post('/login', data); 
         console.log(response);
         return response.data;
-      } catch (error) {
-        return rejectWithValue({ message: 'Greška pri verifikaciji OTP koda' });
+      } catch (error: any) {
+        const message = error?.response?.data?.message || 'Greška pri verifikaciji OTP koda';
+        return rejectWithValue({ message });
       }
     }
   );
@@ -76,7 +77,7 @@ const authSlice = createSlice({
       .addCase(verifyOtp.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
-
+      
         const accessToken = action.payload.token?.accessToken;
         const refreshToken = action.payload.token?.refreshToken;
       
@@ -87,6 +88,7 @@ const authSlice = createSlice({
           localStorage.setItem('user', JSON.stringify(action.payload.user));
         } else {
           console.error("Token nije pronađen u odgovoru:", action.payload.token);
+          state.error = 'Token nije pronađen u odgovoru';
         }
       });
       

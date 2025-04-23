@@ -76,8 +76,22 @@ const Login = () => {
 
     try {
 
-      const result = await dispatch(login(form)).unwrap();
-      navigate('/sendCode');
+      const result = await dispatch(login(form)).unwrap();  
+
+      toast.success('2FA Code is sent to your email!', {
+        position: "top-right",
+        autoClose: 3000, 
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored"
+      });
+  
+      
+      setTimeout(() => {
+        navigate('/sendCode');
+      }, 3000);
 
     } catch (err: any) {
       
@@ -136,7 +150,7 @@ const Login = () => {
         </form>
 
         <div className='login-info'>
-          <a href='/signIn'>Go to Sign up</a>
+          <a href='/register'>Go to Sign up</a>
           <a href='/forgotPassword'>Forgot password?</a>
         </div>
       </div>

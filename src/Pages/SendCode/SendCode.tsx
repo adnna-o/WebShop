@@ -5,8 +5,9 @@ import './SendCode.css';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../Redux/store';
-import api from '../../api/axiosInstance';
-import { login, verifyOtp } from '../../Redux/slices/authSlice';
+import { verifyOtp } from '../../Redux/slices/authSlice';
+import { toast, ToastContainer } from 'react-toastify';
+
 
 const SendCode: React.FC = () => {
   const navigate = useNavigate();
@@ -51,20 +52,28 @@ const SendCode: React.FC = () => {
 
   const handleSubmit = async () => {
     const otp_code = codeDigits.join('');
-
+  
     try {
-        const response = dispatch(verifyOtp({ email, password, otp_code }));
-        navigate('/');
+      const response = await dispatch(verifyOtp({ email, password, otp_code })).unwrap();
+      navigate('/');
     } catch (error: any) {
-      const msg = error?.response?.data?.message || 'Greška prilikom prijave';
-      setErrorMessage(msg);
-      setTimeout(() => setErrorMessage(''), 3000);
+      const msg = error?.message || 'Validation key is not valid.';
+      toast.error(msg, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored"
+      });
     }
   };
 
   return (
     <>
       <div className='code-container'>
+      <ToastContainer />
         <div className='code-main'>
           <div className='nav-back'>
             <button onClick={() => navigate('/login')}>
@@ -87,6 +96,9 @@ const SendCode: React.FC = () => {
                 value={digit}
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
+                ref={(el) => {
+                  inputsRef.current[index] = el;
+                }}
               />
             ))}
           </div>
