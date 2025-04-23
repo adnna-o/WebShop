@@ -46,7 +46,8 @@
   }
   
   .btn-options:not(.delete) {
-    background-color: #2573e7;
+    background-color:  #2e7d2e;
+    color: #fff;
     color: #fff;
   }
   
