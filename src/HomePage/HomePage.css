@@ -21,6 +21,7 @@
   padding-left: 100px;
   padding-top: 50px;
   color: var(--primary-color);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .hero-subtitle {
   color: var(--primary-color);
@@ -31,7 +32,7 @@
   text-transform: uppercase;
 }
 .hero-title {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  
   font-size: 80px;
   font-weight: 600;
   margin-bottom: 0;

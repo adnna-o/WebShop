@@ -1,12 +1,28 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/axiosInstance";
 
-
 export interface Product {
   id: number;
   name: string;
+  price: number;
   created_at: string;
-  images: string[];
+  images:string[];
+  gender: number; 
+  color_id: number;  
+  brand_id: number;  
+  total_ratings: number;
+  avg_rating: string;
+  isFavorite: number;
+  updated_at: string | null;
+  brand: {
+    id: number;
+    name: string;
+  };
+  categories: {
+    id: number;
+    name: string;
+  }[];
+  
 }
 
 interface ProductsState {
@@ -28,13 +44,11 @@ export const fetchProducts = createAsyncThunk("products/fetch", async () => {
   return res.data.data;
 });
 
-
 export const addProduct = createAsyncThunk(
-  "products/add",
-  async (newProduct: Omit<Product, "id">) => {
-    await api.post("/products", newProduct);
-    const res = await api.get("/products"); 
-    return res.data.data;
+  "products/addProduct",
+  async (newProduct: Product) => {
+    const res = await api.post("/products", newProduct);
+    return res.data.data; // Vraća novi proizvod
   }
 );
 
@@ -55,9 +69,6 @@ const productsSlice = createSlice({
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = "Error";
-      })
-      .addCase(addProduct.fulfilled, (state, action) => {
-        state.products = action.payload;
       });
   },
 });
