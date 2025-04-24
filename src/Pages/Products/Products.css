@@ -1,32 +1,38 @@
 
 .product_add_item {
-    display: flex;
-    justify-content: flex-start;
-    gap: 16px; 
-    margin-bottom: 16px; 
-  }
-    
-  .btn-addProduct, .products_searchBar {
-    height: 40px;
-    width: 30%;
-  }
-  
-  .products_searchBar {
-    padding: 8px; 
-    border: 2px solid #cdcdcd;;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .btn-addProduct {
-    padding: 8px 16px; 
-    color: #282828;
-    border: none;
-    font-size: 16px; 
-    background-color: #fff;
-  
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
 
-  }
+
+.add_product_button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #fff;
+  border: none;
+  color: #282828;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 40px;
+  transition: background-color 0.3s ease;
+}
+
+.add_product_button:hover {
+  background-color: #f0f0f0;
+}
+
+.products_searchBar {
+  height: 40px;
+  width: 15%;
+  padding: 8px;
+  border: 2px solid #cdcdcd;
+  border-radius: 5px;
+  font-size: 16px;
+}
   
   .product_table table {
     width: 100%;
@@ -41,19 +47,17 @@
     text-align: left;
   }
     
-  .product-image {
-    width: 60px;
-    height: auto;
-    border-radius: 8px;
+
+  .btn-options{
+    background-color:  #2e7d2e;
+    color: #fff;
   }
-    
   .btn-options {
     margin-right: 8px; 
     padding: 4px 8px;
     border: none;
     border-radius: 4px;
-    background-color: #2e7d2e;
-    color: #fff;
+    
     cursor: pointer;
   }
     

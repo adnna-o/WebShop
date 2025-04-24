@@ -1,32 +1,43 @@
-import { FC } from "react";
+import { FC, useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import "./Products.css";
+import { AppDispatch, RootState } from "../../Redux/store";
+import {  fetchProducts } from "../../Redux/slices/productSlice";
+import AddIcon from "../AddIcon/AddIcon";
 
 const Products: FC = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Product A",
-      createdAt: "2025-04-20",
-      images: ["https://via.placeholder.com/100"],
-    },
-    {
-      id: 2,
-      name: "Product B",
-      createdAt: "2025-04-18",
-      images: ["https://via.placeholder.com/100"],
-    },
-  ];
+  const dispatch: AppDispatch = useDispatch();
+  const { products } = useSelector(
+    (state: RootState) => state.products
+  );
+
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  
 
   return (
     <div className="product-main">
       <div className="product_add_item">
-        <button className="btn-addProduct">Add new Product</button>
+        <div
+          className="add_product_button"
+    
+        >
+          <AddIcon />
+          <p>Add new Product</p>
+        </div>
         <input
           className="products_searchBar"
           type="search"
           placeholder="Search..."
         />
       </div>
+
+
+     
 
       <div className="product_table">
         <table>
@@ -44,13 +55,19 @@ const Products: FC = () => {
               <tr key={product.id}>
                 <td>{product.id}</td>
                 <td>{product.name}</td>
-                <td>{product.createdAt}</td>
+                <td>{product.created_at || "N/A"}</td>
                 <td>
-                  <img
-                    src={product.images[0]}
-                    alt={product.name}
-                    className="product-image"
-                  />
+                  {product.images?.length > 0 && (
+                    <img
+                      src="/images/children.webp"
+                      alt={product.name}
+                      style={{
+                        width: "60px",
+                        height: "60px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  )}
                 </td>
                 <td>
                   <div className="product-actions">

@@ -3,17 +3,30 @@
   }
   
   .discount_add_item {
+    display: flex;
+    align-items: center;
     margin-bottom: 16px;
+    width:30%;
   }
   
+  
   .btn-addDiscount {
-
-    color: #282828;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 8px 16px;
-    border: none;
     background-color: #fff;
-    font-size: 16px; 
-    align-items: flex-start;
+    border: none;
+    color: #282828;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-addDiscount:hover {
+    background-color: #f0f0f0;
   }
   
   .discount_table table {
@@ -46,7 +59,8 @@
   }
   
   .btn-options:not(.delete) {
-    background-color: #2573e7;
+    background-color:  #2e7d2e;
+    color: #fff;
     color: #fff;
   }
   

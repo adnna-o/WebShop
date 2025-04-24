@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { HomePage } from "./HomePage";
 import Favourites from "./Pages/Favourites/Favourites";
 import Cart from "./Pages/Cart/Cart";
@@ -22,8 +22,6 @@ import Discounts from "./Pages/Discounts/Discounts";
 import SendCode from "./Pages/SendCode/SendCode";
 import Shop from "./Pages/Shop/Shop";
 
-
-
 function App() {
   return (
     <Routes>
@@ -44,20 +42,19 @@ function App() {
 
       {/*RUTE ZA ADMINA */}
       <Route path="/adminPanel" element={<AdminPanel />}>
-        <Route path="products" element={<Products />} />
-        <Route path="discounts" element={<Discounts />} />
+        <Route index element={<Products />} />
+        <Route path="admin/products" element={<Products />} />
+        <Route path="admin/discounts" element={<Discounts />} />
 
-        <Route path="categories" element={<Categories />} />
-        <Route path="brands" element={<Brands />} />
-        <Route path="colors" element={<Colors />} />
-        <Route path="sizes" element={<Sizes />} />
+        <Route path="admin/categories" element={<Categories />} />
+        <Route path="admin/brands" element={<Brands />} />
+        <Route path="admin/colors" element={<Colors />} />
+        <Route path="admin/sizes" element={<Sizes />} />
       </Route>
 
-     
       <Route path="/login" element={<LogIn />} />
-      <Route path="/register" element={<SignIn/>} />
-      <Route path="/sendCode" element={<SendCode/>} />
-  
+      <Route path="/register" element={<SignIn />} />
+      <Route path="/sendCode" element={<SendCode />} />
     </Routes>
   );
 }

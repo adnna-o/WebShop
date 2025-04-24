@@ -1,17 +1,30 @@
-import { FC } from "react";
-import "./Colors.css";
+import React, { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../Redux/store";  
+import { fetchColors } from "../../Redux/slices/colorSlice"; 
 
-const Colors: FC = () => {
-  const colors = [
-    { id: 1, name: "Red", hex: "#FF0000", created_at: "2025-04-10" },
-    { id: 2, name: "Green", hex: "#00FF00", created_at: "2025-04-11" },
-    { id: 3, name: "Blue", hex: "#0000FF", created_at: "2025-04-12" },
-  ];
+import "./Colors.css";  
+import AddIcon from "../AddIcon/AddIcon";
+
+const ColorsPage: FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+ 
+  const { colors} = useSelector(
+    (state: RootState) => state.colors
+  );
+
+  
+  useEffect(() => {
+    dispatch(fetchColors());
+  }, [dispatch]);
+
+  
 
   return (
     <div className="color-main">
       <div className="color_add_item">
-        <button className="btn-addColor">Add new Color</button>
+        <button className="btn-addColor"><AddIcon/><p>Add new Color</p></button>
       </div>
 
       <div className="color_table">
@@ -31,14 +44,14 @@ const Colors: FC = () => {
               <tr key={color.id}>
                 <td>{color.id}</td>
                 <td>{color.name}</td>
-                <td>{color.hex}</td>
+                <td>{color.hex_code}</td>
                 <td>
                   <div
                     className="color-box"
-                    style={{ backgroundColor: color.hex }}
+                    style={{ backgroundColor: color.hex_code }}
                   ></div>
                 </td>
-                <td>{color.created_at}</td>
+                <td>{new Date(color.created_at).toLocaleDateString()}</td>
                 <td>
                   <div className="color-actions">
                     <button className="btn-options">Edit</button>
@@ -54,4 +67,4 @@ const Colors: FC = () => {
   );
 };
 
-export default Colors;
+export default ColorsPage;
