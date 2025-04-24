@@ -11,8 +11,10 @@ export const News: FC = () => {
   const {t} = useTranslation();
   return (
     <div className="container">
-      <div className="hero-title">
-        <h4>  {t('hero-title')}</h4>
+      <div className="titletwo">
+        
+        <h4>{t('titletwo').toUpperCase()}</h4>
+        
       </div>
 
       <Cards />

@@ -1,52 +1,44 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import "./Categories.css";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../Redux/store";
+import { fetchCategories } from "../../Redux/slices/categorySlice";
+import AddIcon from "../AddIcon/AddIcon";
 
 const Categories: FC = () => {
-  const categories = [
-    {
-      id: 1,
-      name: "T-Shirts",
-      createdAt: "2025-04-10",
-    },
-    {
-      id: 2,
-      name: "Jeans",
-      createdAt: "2025-04-12",
-    },
-    {
-      id: 3,
-      name: "Jackets",
-      createdAt: "2025-04-14",
-    },
-    {
-      id: 4,
-      name: "Shoes",
-      createdAt: "2025-04-16",
-    },
-  ];
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { categories} = useSelector(
+    (state: RootState) => state.categories
+  );
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   return (
     <div className="category-main">
       <div className="category_add_item">
-        <button className="btn-addCategory">Add new Category</button>
+        <button className="btn-addCategory"><AddIcon/><p>Add new Category</p></button>
       </div>
 
       <div className="category_table">
         <table>
           <thead>
             <tr>
-              <th>ID Kategorije</th>
-              <th>Naziv</th>
+              <th>ID </th>
+              <th>Name</th>
               <th>Created At</th>
               <th>Options</th>
             </tr>
           </thead>
           <tbody>
-            {categories.map((category) => (
+            {categories && categories.map((category) => (
               <tr key={category.id}>
                 <td>{category.id}</td>
                 <td>{category.name}</td>
-                <td>{category.createdAt}</td>
+                <td>{category.created_at}</td>
                 <td>
                   <div className="category-actions">
                     <button className="btn-options">Edit</button>

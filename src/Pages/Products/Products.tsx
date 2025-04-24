@@ -1,52 +1,43 @@
-import { FC, useEffect, useState, FormEvent } from "react";
+import { FC, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./Products.css";
 import { AppDispatch, RootState } from "../../Redux/store";
-import { addProduct, fetchProducts } from "../../Redux/slices/productSlice";
+import {  fetchProducts } from "../../Redux/slices/productSlice";
+import AddIcon from "../AddIcon/AddIcon";
 
 const Products: FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { products, loading, error } = useSelector(
+  const { products } = useSelector(
     (state: RootState) => state.products
   );
 
-  const [newProductName, setNewProductName] = useState("");
-  const [newImageURL, setNewImageURL] = useState("");
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const handleAddProduct = (e: FormEvent) => {
-    e.preventDefault();
-
-    const newProduct = {
-      name: newProductName,
-      created_at: new Date().toISOString().split("T")[0],
-      images: [newImageURL],
-    };
-
-    dispatch(addProduct(newProduct));
-    setNewProductName("");
-    setNewImageURL("");
-  };
+  
 
   return (
     <div className="product-main">
       <div className="product_add_item">
-        <form onSubmit={handleAddProduct} className="product-form">
-         
-          <button type="submit" className="btn-addProduct">
-            Add new Product
-          </button>
-        </form>
-
-        <input className="products_searchBar" type="search" placeholder="Search..." />
+        <div
+          className="add_product_button"
+    
+        >
+          <AddIcon />
+          <p>Add new Product</p>
+        </div>
+        <input
+          className="products_searchBar"
+          type="search"
+          placeholder="Search..."
+        />
       </div>
 
-      {loading && <p>Loading products...</p>}
-      {error && <p>{error}</p>}
+
+     
 
       <div className="product_table">
         <table>
@@ -64,9 +55,19 @@ const Products: FC = () => {
               <tr key={product.id}>
                 <td>{product.id}</td>
                 <td>{product.name}</td>
-                <td>{product.created_at}</td>
+                <td>{product.created_at || "N/A"}</td>
                 <td>
-                  <img src={product.images[0]} alt={product.name} className="product-image" />
+                  {product.images?.length > 0 && (
+                    <img
+                      src="/images/children.webp"
+                      alt={product.name}
+                      style={{
+                        width: "60px",
+                        height: "60px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  )}
                 </td>
                 <td>
                   <div className="product-actions">

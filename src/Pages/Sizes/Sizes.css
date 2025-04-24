@@ -3,16 +3,28 @@
   }
   
   .size_add_item {
+    display: flex;
+    align-items: center;
     margin-bottom: 16px;
   }
   
   .btn-addSize {
-    color: #282828;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 8px 16px;
-    border: none;
     background-color: #fff;
+    border: none;
+    color: #282828;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
+    transition: background-color 0.3s ease;
+  }
+
+  .addSize:hover {
+    background-color: #f0f0f0;
   }
   
   .size_table table {
