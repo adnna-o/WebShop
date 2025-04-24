@@ -6,8 +6,6 @@ import categoriesReducer from "./slices/categorySlice";
 import colorsReducer from "./slices/colorSlice";
 import sizesReducer from "./slices/sizeSlice";
 import discountsReducer from "./slices/discountSlice";
-import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './slices/authSlice';
 import filtersReducer from './slices/filterSlice';
 
 
