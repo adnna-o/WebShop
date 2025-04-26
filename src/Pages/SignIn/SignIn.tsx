@@ -4,7 +4,7 @@ import EyeIcon from '../../Components/EyeIcon/EyeIcon';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api/axiosInstance';
 import EyeOffIcon from '../../Components/EyeOffIcon/EyeOffIcon';
-
+import Input from '../../Components/Input/Input'; 
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -26,8 +26,8 @@ const SignIn: React.FC = () => {
   });
 
   const [apiError, setApiError] = useState<string | null>(null);
-  const [showPassword, setShowPassword]=useState(false);
-  const [showConfirmPassword, setShowConfirmPassword]=useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -48,17 +48,17 @@ const SignIn: React.FC = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-  
+
+    
     if (name === 'email') {
       setErrors((prev) => ({
         ...prev,
         email: value.trim() === '' ? 'Required field, invalid email format' : validateEmail(value) ? '' : 'Required field, invalid email format',
       }));
     }
-  
+
     if (name === 'password') {
       setErrors((prev) => ({
         ...prev,
@@ -67,14 +67,14 @@ const SignIn: React.FC = () => {
           : 'Password must be at least 8 characters long, include upper and lower case letters, a number, and a special character.',
       }));
     }
-  
+
     if (name === 'confirmPassword') {
       setErrors((prev) => ({
         ...prev,
         confirmPassword: value === form.password ? '' : 'Passwords do not match',
       }));
     }
-  
+
     if (name === 'firstName' || name === 'lastName') {
       setErrors((prev) => ({
         ...prev,
@@ -82,12 +82,10 @@ const SignIn: React.FC = () => {
       }));
     }
   };
-  
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    
     const { name, value } = e.target;
-  
+
     if (name === 'firstName' || name === 'lastName') {
       if (value.trim() === '') {
         setErrors((prev) => ({ ...prev, [name]: 'Required fields' }));
@@ -95,23 +93,22 @@ const SignIn: React.FC = () => {
         setErrors((prev) => ({ ...prev, [name]: '' }));
       }
     }
-  
+
     if (name === 'email' && !validateEmail(value)) {
       setErrors((prev) => ({ ...prev, email: 'Required field, invalid email format.' }));
     }
-  
+
     if (name === 'password' && !validatePassword(value)) {
       setErrors((prev) => ({
         ...prev,
         password: 'Password must have at least 8 characters, one capital letter, one small letter, one number, and one special character.',
       }));
     }
-  
+
     if (name === 'confirmPassword' && value !== form.password) {
       setErrors((prev) => ({ ...prev, confirmPassword: 'Passwords do not match' }));
     }
   };
-  
 
   const isFormValid = () =>
     Object.values(errors).every((err) => err === '') &&
@@ -152,72 +149,68 @@ const SignIn: React.FC = () => {
         <img className="signin-img" src="/images/avatar-removebg-preview.png" alt="SignIn" />
         <form className="signin-form" onSubmit={handleSubmit}>
           <div className="user-name">
-            <input
-              className={`first-name ${errors.firstName ? 'input-error' : ''}`}
+            <Input
               type="text"
               name="firstName"
               placeholder="First name"
               value={form.firstName}
               onChange={handleChange}
               onBlur={handleBlur}
-              required
+              className={errors.firstName ? 'input-error' : ''}
+ 
             />
-
-            <input
-              className={`last-name ${errors.lastName ? 'input-error' : ''}`}
+            <Input
               type="text"
               name="lastName"
               placeholder="Last name"
               value={form.lastName}
               onChange={handleChange}
               onBlur={handleBlur}
-              required
+              className={errors.lastName ? 'input-error' : ''}
             />
           </div>
 
           {(errors.firstName || errors.lastName) && (
             <span className="error-text">Required fields.</span>)}
 
-          <input
-            className={`email ${errors.email ? 'input-error' : ''}`}
+          <Input
             type="email"
             name="email"
             placeholder="Email address"
             value={form.email}
             onChange={handleChange}
             onBlur={handleBlur}
-            required
+            className={errors.email ? 'input-error' : ''}
           />
-          {errors.email && <span className="error-text">{errors.email}</span>}
+
+          {errors.email && <span className="error-text">{errors.email}</span>}      
 
           <div className="password-container">
-            <input
-              className={`password ${errors.password ? 'input-error' : ''}`}
+            <Input
               type={showPassword ? 'text' : 'password'}
               name="password"
               placeholder="Password"
               value={form.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              required
+              className={errors.password ? 'input-error' : ''}
             />
             <span className="show-password" onClick={togglePassword} style={{ cursor: 'pointer' }}>
-             {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+              {showPassword ? <EyeOffIcon /> : <EyeIcon />}
             </span>
           </div>
-           
+
           {errors.password && <span className="error-text">{errors.password}</span>}
 
           <div className="confirm-password-container">
-            <input
-              className={`confirm-password ${errors.confirmPassword ? 'input-error' : ''}`}
+            <Input
               type={showConfirmPassword ? 'text' : 'password'}
               name="confirmPassword"
               placeholder="Confirm Password"
               value={form.confirmPassword}
               onChange={handleChange}
               onBlur={handleBlur}
-              required
+              className={errors.confirmPassword ? 'input-error' : ''}
             />
             <span className="show-password" onClick={toggleConfirmPassword} style={{ cursor: 'pointer' }}>
               {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
