@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Account from "../Account/Account";
-import LogOut from "../LogOut/LogOut";
 import Settings from "../Settings/Settings";
 import "./ProfileDropdown.css";
 import { Link } from "react-router-dom";
+import { logout } from "../../Redux/slices/authSlice";
 
 
 
@@ -39,6 +39,12 @@ const ProfileDropdown: React.FC = () => {
     }
   }, []);
   
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+  };
 
 
   return (
@@ -53,8 +59,7 @@ const ProfileDropdown: React.FC = () => {
           </div>
           {isAdmin ? (
           <Link to="/adminPanel" className="admin-panel">Admin panel</Link>) : null}
-          <div className="log-out">
-            <LogOut />
+          <div className="log-out" onClick={handleLogout}>Log Out
           </div>
         </>
       ) : (
@@ -72,3 +77,7 @@ const ProfileDropdown: React.FC = () => {
 };
 
 export default ProfileDropdown;
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}
+

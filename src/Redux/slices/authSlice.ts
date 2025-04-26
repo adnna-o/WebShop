@@ -56,7 +56,9 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('user');
     },
   },
   extraReducers: (builder) => {
@@ -90,6 +92,10 @@ const authSlice = createSlice({
           console.error("Token nije pronađen u odgovoru:", action.payload.token);
           state.error = 'Token nije pronađen u odgovoru';
         }
+      })
+      .addCase(verifyOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || 'Greška pri verifikaciji OTP koda';
       });
       
   },
