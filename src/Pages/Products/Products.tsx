@@ -55,7 +55,18 @@ const Products: FC = () => {
               <tr key={product.id}>
                 <td>{product.id}</td>
                 <td>{product.name}</td>
-                <td>{product.created_at || "N/A"}</td>
+                <td>{product.created_at
+    ? (() => {
+        const date = new Date(product.created_at);
+        const formattedDate = date.toLocaleDateString("en-GB");
+        const formattedTime = date.toLocaleTimeString("de-DE", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        });
+        return `${formattedDate} ${formattedTime}`;
+      })()
+    : "N/A"}</td>
                 <td>
                   {product.images?.length > 0 && (
                     <img

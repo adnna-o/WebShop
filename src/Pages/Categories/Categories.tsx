@@ -38,7 +38,18 @@ const Categories: FC = () => {
               <tr key={category.id}>
                 <td>{category.id}</td>
                 <td>{category.name}</td>
-                <td>{category.created_at}</td>
+                <td>{category.created_at
+    ? (() => {
+        const date = new Date(category.created_at);
+        const formattedDate = date.toLocaleDateString("en-GB");
+        const formattedTime = date.toLocaleTimeString("de-DE", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        });
+        return `${formattedDate} ${formattedTime}`;
+      })()
+    : "N/A"}</td>
                 <td>
                   <div className="category-actions">
                     <button className="btn-options">Edit</button>

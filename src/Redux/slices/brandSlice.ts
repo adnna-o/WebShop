@@ -28,7 +28,7 @@ const initialState: BrandsState = {
 export const fetchBrands = createAsyncThunk("brands/fetch", async () => {
   const res = await api.get("/brands");
   console.log("API response:", res.data); 
-  return res.data;
+  return res.data.data;
 });
 
 
