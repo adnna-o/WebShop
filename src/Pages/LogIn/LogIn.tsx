@@ -8,6 +8,7 @@ import "./LogIn.css";
 import EyeOffIcon from '../../Components/EyeOffIcon/EyeOffIcon';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Input from '../../Components/Input/Input';
 
 
 const Login = () => {
@@ -117,28 +118,26 @@ const Login = () => {
       <div className='login-main'>
         <img className="login-img" src="/images/login-removebg-preview.png" alt="Login" />
         <form className='login-form' onSubmit={handleLogin}>
-          <input
-            className={`email ${errors.email ? 'input-error' : ''}`}
+          <Input
+            className={errors.email ? 'input-error' : ''}
             type="email"
             name="email"
             placeholder='Email address'
             value={form.email}
             onChange={handleChange}
             onBlur={handleBlur}
-            required
           />
           {errors.email && <span className="error-text">{errors.email}</span>}
 
           <div className='password-container'>
-            <input
-              className={`password ${errors.password ? 'input-error' : ''}`}
+            <Input
+              className={errors.password ? 'input-error' : ''}
               type={showPassword ? 'text' : 'password'}
               name="password"
               placeholder='Password'
               value={form.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              required
             />
             <span className='show-password' onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? <EyeOffIcon /> : <EyeIcon />}
