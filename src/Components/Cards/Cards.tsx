@@ -35,10 +35,10 @@ export const Cards: FC = () => {
   const status = useSelector((state: RootState) => state.products.loading);
 
   useEffect(() => {
-    if (!status) {
+    if (products.length === 0) {
       dispatch(fetchProducts());
     }
-  }, [status, dispatch]);
+  }, [dispatch, products.length]);
 
   const groupedProducts: Product[][] = products.reduce<Product[][]>(
     (acc, product, index) => {
