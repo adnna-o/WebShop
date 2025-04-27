@@ -2,14 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/axiosInstance";
 
 export interface Category {
-    id: number;
-    name: string;
-  
-    created_at: string;
-   
-    updated_at: string | null;
-
-  
+  id: number;
+  name: string;
+  created_at: string;
+  updated_at: string | null;
 }
 
 interface CategoryState {
@@ -24,16 +20,22 @@ const initialState: CategoryState = {
   error: null,
 };
 
-// Get category
-export const fetchCategories= createAsyncThunk("categories/fetch", async () => {
+// Get categories
+export const fetchCategories = createAsyncThunk("categories/fetch", async () => {
   const res = await api.get("/categories");
-  console.log("API response:", res.data); 
   return res.data;
 });
 
+// Add category
+export const addCategory = createAsyncThunk(
+  "categories/add",
+  async (newCategory: { name: string }) => {
+    const res = await api.post("/categories", newCategory);
+    return res.data;
+  }
+);
 
-
-const categoriessSlice = createSlice({
+const categoriesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {},
@@ -47,11 +49,14 @@ const categoriessSlice = createSlice({
         state.categories = action.payload;
         state.loading = false;
       })
-      .addCase(fetchCategories.rejected, (state, action) => {
+      .addCase(fetchCategories.rejected, (state) => {
         state.loading = false;
         state.error = "Error";
+      })
+      .addCase(addCategory.fulfilled, (state, action) => {
+        state.categories.push(action.payload);
       });
   },
 });
 
-export default categoriessSlice.reducer;
+export default categoriesSlice.reducer;

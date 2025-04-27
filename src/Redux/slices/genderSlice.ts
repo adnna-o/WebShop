@@ -26,7 +26,7 @@ const initialState: GendersState = {
 export const fetchGenders = createAsyncThunk("genders/fetch", async () => {
   const res = await api.get("/genders");
   console.log("API response:", res.data); 
-  return res.data.data;
+  return res.data;
 });
 
 

@@ -1,30 +1,28 @@
-import { FC, useEffect} from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./Products.css";
 import { AppDispatch, RootState } from "../../Redux/store";
-import {  fetchProducts } from "../../Redux/slices/productSlice";
+import { fetchProducts } from "../../Redux/slices/productSlice";
 import AddIcon from "../AddIcon/AddIcon";
+import AddProductForm from "../AddProductForm/AddProductForm"; 
 
 const Products: FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { products } = useSelector(
-    (state: RootState) => state.products
-  );
+  const { products } = useSelector((state: RootState) => state.products);
 
+  const [showAddForm, setShowAddForm] = useState(false); 
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
-
-  
 
   return (
     <div className="product-main">
       <div className="product_add_item">
         <div
           className="add_product_button"
-    
+          onClick={() => setShowAddForm((prev) => !prev)} 
         >
           <AddIcon />
           <p>Add new Product</p>
@@ -36,9 +34,10 @@ const Products: FC = () => {
         />
       </div>
 
+      {/* Forma za dodavanje novog proizvoda */}
+      {showAddForm && <AddProductForm />} 
 
-     
-
+      {/* Tabela sa proizvodima */}
       <div className="product_table">
         <table>
           <thead>
@@ -55,18 +54,20 @@ const Products: FC = () => {
               <tr key={product.id}>
                 <td>{product.id}</td>
                 <td>{product.name}</td>
-                <td>{product.created_at
-    ? (() => {
-        const date = new Date(product.created_at);
-        const formattedDate = date.toLocaleDateString("en-GB");
-        const formattedTime = date.toLocaleTimeString("de-DE", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        });
-        return `${formattedDate} ${formattedTime}`;
-      })()
-    : "N/A"}</td>
+                <td>
+                  {product.created_at
+                    ? (() => {
+                        const date = new Date(product.created_at);
+                        const formattedDate = date.toLocaleDateString("en-GB");
+                        const formattedTime = date.toLocaleTimeString("de-DE", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        });
+                        return `${formattedDate} ${formattedTime}`;
+                      })()
+                    : "N/A"}
+                </td>
                 <td>
                   {product.images?.length > 0 && (
                     <img

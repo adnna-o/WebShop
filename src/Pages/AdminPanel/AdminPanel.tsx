@@ -29,7 +29,7 @@ const AdminPanel: React.FC = () => {
         </div>
       </div>
       <div className='adminLayout_main'>
-        <header>This is header</header>
+        <header>Header</header>
         <Outlet/>
 
       </div>

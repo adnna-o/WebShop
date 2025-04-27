@@ -1,27 +1,71 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./Sizes.css";
 import { AppDispatch, RootState } from "../../Redux/store";
-import { fetchSizes } from "../../Redux/slices/sizeSlice";
+import { fetchSizes, addSize } from "../../Redux/slices/sizeSlice";
 import AddIcon from "../AddIcon/AddIcon";
+import Input from "../../Components/Input/Input";
 
 const Sizes: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { sizes } = useSelector((state: RootState) => state.sizes);
+  const { sizes, loading, error } = useSelector(
+    (state: RootState) => state.sizes
+  );
+
+  const [showForm, setShowForm] = useState(false);
+  const [newSize, setNewSize] = useState("");
 
   useEffect(() => {
     dispatch(fetchSizes());
   }, [dispatch]);
 
+  const handleAddClick = () => {
+    setShowForm((prev) => !prev);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewSize(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newSize.trim()) return;
+
+   
+    dispatch(addSize(newSize));
+
+    setNewSize("");
+    setShowForm(false);
+  };
+
   return (
     <div className="size-main">
       <div className="size_add_item">
-        <button className="btn-addSize">
+        <button className="btn-addSize" onClick={handleAddClick}>
           <AddIcon />
-          <p>Add new Size</p>
+          <p>{showForm ? "Cancel" : "Add new Size"}</p>
         </button>
       </div>
+
+      {showForm && (
+        <form className="size-form" onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            name="size"
+            value={newSize}
+            placeholder="Enter size (e.g., S, M, L, XL)"
+            onChange={handleInputChange}
+            className="size-input"
+          />
+          <button type="submit" className="btn-saveSize">
+            Save Size
+          </button>
+        </form>
+      )}
+
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
 
       <div className="size_table">
         <table>
@@ -35,7 +79,7 @@ const Sizes: FC = () => {
           </thead>
           <tbody>
             {sizes.map((size) => (
-              <tr key={size.id}>
+              <tr key={size.id ? size.id : `${size.size}-${size.created_at}`}>
                 <td>{size.id}</td>
                 <td>{size.size}</td>
                 <td>
