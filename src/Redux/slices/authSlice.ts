@@ -40,7 +40,6 @@ export const login = createAsyncThunk<any, { email: string; password: string }, 
     async (data, { rejectWithValue }) => {
       try {
         const response = await api.post('/login', data); 
-        console.log(response);
         return response.data;
       } catch (error: any) {
         const message = error?.response?.data?.message || 'Greška pri verifikaciji OTP koda';

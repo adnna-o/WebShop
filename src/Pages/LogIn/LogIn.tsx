@@ -6,18 +6,19 @@ import { login } from '../../Redux/slices/authSlice';
 import EyeIcon from '../../Components/EyeIcon/EyeIcon';
 import "./LogIn.css";
 import EyeOffIcon from '../../Components/EyeOffIcon/EyeOffIcon';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, ToastContent, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Input from '../../Components/Input/Input';
+import { useTranslation } from 'react-i18next';
 
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-
   const [form, setForm] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState<{ email?: string; password?: string; backend?: string }>({});
   const [showPassword, setShowPassword] = useState(false);
+  const {t} = useTranslation();
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -37,16 +38,16 @@ const Login = () => {
     if (name === 'email') {
       setErrors((prev) => ({
         ...prev,
-        email: value.trim() === '' ? 'Required field, invalid email format' : validateEmail(value) ? '' : 'Required field, invalid email format',
+        email: value.trim() === '' ? t('invalidEmail') : validateEmail(value) ? '' : t('invalidEmail'),
       }));
     }
   
     if (name === 'password') {
       setErrors((prev) => ({
         ...prev,
-        password: value.trim() === '' ? 'Password must be at least 8 characters long, include upper and lower case letters, a number, and a special character.' : validatePassword(value)
+        password: value.trim() === '' ? t('passwordStrength') : validatePassword(value)
           ? ''
-          : 'Password must be at least 8 characters long, include upper and lower case letters, a number, and a special character.',
+          : t('passwordStrength'),
       }));
     }
   };
@@ -56,13 +57,13 @@ const Login = () => {
       const { name, value } = e.target;
     
       if (name === 'email' && !validateEmail(value)) {
-        setErrors((prev) => ({ ...prev, email: 'Required field, invalid email format.' }));
+        setErrors((prev) => ({ ...prev, email: t('invalidEmail') }));
       }
     
       if (name === 'password' && !validatePassword(value)) {
         setErrors((prev) => ({
           ...prev,
-          password: 'Password must have at least 8 characters, one capital letter, one small letter, one number, and one special character.',
+          password: t('passwordStrength') ,
         }));
       }  
     };
@@ -79,7 +80,8 @@ const Login = () => {
 
       const result = await dispatch(login(form)).unwrap();  
 
-      toast.success('2FA Code is sent to your email!', {
+      const content: ToastContent = t('codeSent');
+      toast.success(content, {
         position: "top-right",
         autoClose: 3000, 
         hideProgressBar: false,
@@ -95,10 +97,8 @@ const Login = () => {
       }, 3000);
 
     } catch (err: any) {
-      
-      console.log(err);
-      const errorMessage = err?.message || 'Došlo je do greške sa emailom ili lozinkom. Pokušajte ponovo.';
-      toast.error(errorMessage, {
+      const content: ToastContent = t('loginError');
+      toast.error(content, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -122,7 +122,7 @@ const Login = () => {
             className={errors.email ? 'input-error' : ''}
             type="email"
             name="email"
-            placeholder='Email address'
+            placeholder={t('email')}
             value={form.email}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -134,7 +134,7 @@ const Login = () => {
               className={errors.password ? 'input-error' : ''}
               type={showPassword ? 'text' : 'password'}
               name="password"
-              placeholder='Password'
+              placeholder={t('password')}
               value={form.password}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -145,12 +145,12 @@ const Login = () => {
           </div>
           {errors.password && <span className="error-text">{errors.password}</span>}
   
-          <button type="submit" disabled={!isFormValid()}>Login</button>
+          <button type="submit" disabled={!isFormValid()}> {t('submitLoginButton')}</button>
         </form>
 
         <div className='login-info'>
-          <a href='/register'>Go to Sign up</a>
-          <a href='/forgotPassword'>Forgot password?</a>
+          <a href='/register'>{t('registerLink')}</a>
+          <a href='/forgotPassword'>{t('forgotPasswordLink')}</a>
         </div>
       </div>
     </div>

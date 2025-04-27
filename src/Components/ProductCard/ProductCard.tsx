@@ -32,14 +32,29 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const mainImage = product.images.find(img => img.is_main === 1) || product.images[0];
-  const genderFilter = useSelector((state: RootState) => state.filters.genders);
+ 
+  const selectedGender = useSelector((state: RootState) => state.filters.genders[0]);
+
+  const getButtonColor = (gender: number) => {
+    switch (gender) {
+      case 1:
+        return '#2fc8a4'; 
+      case 2:
+        return '#fa5530'; 
+      case 3:
+        return '#fb9f03'; 
+      default:
+        return '#6c63ff'; 
+    }
+  };
 
   return (
     <div className='product-card'>
         <div className='product-card-content'>
       <div className='product-image'>
       {product.images?.length > 0 && (
-     <img src="/images/login-removebg-preview.png" alt={product.name}
+     <img  src={`http://localhost:8000${product.images[0].path}`}
+     alt={product.name}
         />
 )}
       </div>
@@ -59,7 +74,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
          allowFraction />
     </div>
       <div className='add-to-cart'>
-      <button>Add to cart</button>
+      <button style={{ backgroundColor: getButtonColor(selectedGender) }}>Add to cart</button>
       </div>
       </div>
     </div>

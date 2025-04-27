@@ -20,6 +20,7 @@ const initialState: FiltersState = {
   max_price: 5000,
 };
 
+
 export const filterSlice = createSlice({
   name: 'filters',
   initialState,
@@ -39,10 +40,12 @@ export const filterSlice = createSlice({
         ? state.brands.filter((b) => b !== id)
         : [...state.brands, id];
     },
-    setSizeFilter: (state, action: PayloadAction<number[]>) => {
-        const selectedSizeIds = action.payload;
-        state.sizes = selectedSizeIds;
-      },
+    setSizeFilter: (state, action: PayloadAction<number>) => {
+      const id = action.payload;
+      state.sizes = state.sizes.includes(id)
+        ? state.sizes.filter((sizeId) => sizeId !== id)
+        : [...state.sizes, id];
+    },
     setColorFilter: (state, action: PayloadAction<number>) => {
       const id = action.payload;
       state.colors = state.colors.includes(id)
@@ -56,7 +59,10 @@ export const filterSlice = createSlice({
       state.min_price = action.payload.min;
       state.max_price = action.payload.max;
     },
-    resetFilters: () => initialState,
+    resetFilters: (state) => ({
+      ...initialState,
+      genders: state.genders,
+    }),
   },
 });
 

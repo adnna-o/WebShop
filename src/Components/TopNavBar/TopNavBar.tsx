@@ -80,10 +80,10 @@ const NavBar: React.FC = () => {
       
       {isMobileMenuOpen && (
         <div className="mobile-menu">
-          <NavLink to="/shop/women"className={({ isActive }) => isActive ? "mobile-nav-link active" : "mobile-nav-link"}> Women </NavLink>
-          <NavLink to="/shop/men"className={({ isActive }) => isActive ? "mobile-nav-link active" : "mobile-nav-link"}> Men </NavLink>
-          <NavLink to="/shop/children"className={({ isActive }) => isActive ? "mobile-nav-link active" : "mobile-nav-link"}> Children </NavLink> 
-          <NavLink to="/shop/all"className={({ isActive }) => isActive ? "mobile-nav-link active" : "mobile-nav-link"}> All </NavLink>
+          <NavLink to="/shop/women"className={({ isActive }) => isActive ? "mobile-nav-link active" : "mobile-nav-link"}> {t('women').toString()} </NavLink>
+          <NavLink to="/shop/men"className={({ isActive }) => isActive ? "mobile-nav-link active" : "mobile-nav-link"}>{t('men').toString()} </NavLink>
+          <NavLink to="/shop/children"className={({ isActive }) => isActive ? "mobile-nav-link active" : "mobile-nav-link"}>{t('children').toString()}</NavLink> 
+          <NavLink to="/shop/all"className={({ isActive }) => isActive ? "mobile-nav-link active" : "mobile-nav-link"}> {t('all').toString()} </NavLink>
         </div>
       )}
     </>
