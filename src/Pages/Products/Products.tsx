@@ -5,13 +5,13 @@ import "./Products.css";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { fetchProducts } from "../../Redux/slices/productSlice";
 import AddIcon from "../AddIcon/AddIcon";
-import AddProductForm from "../AddProductForm/AddProductForm"; 
+
 
 const Products: FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { products } = useSelector((state: RootState) => state.products);
 
-  const [showAddForm, setShowAddForm] = useState(false); 
+ 
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -22,7 +22,7 @@ const Products: FC = () => {
       <div className="product_add_item">
         <div
           className="add_product_button"
-          onClick={() => setShowAddForm((prev) => !prev)} 
+     
         >
           <AddIcon />
           <p>Add new Product</p>
@@ -34,10 +34,8 @@ const Products: FC = () => {
         />
       </div>
 
-      {/* Forma za dodavanje novog proizvoda */}
-      {showAddForm && <AddProductForm />} 
-
-      {/* Tabela sa proizvodima */}
+   
+  
       <div className="product_table">
         <table>
           <thead>

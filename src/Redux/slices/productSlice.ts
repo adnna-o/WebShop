@@ -1,15 +1,28 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/axiosInstance";
 
-// Postavi Product tip ako nije postavljen.
+// Tipovi za Product, sada sa detaljnijim informacijama o brandu i kategorijama.
+export interface Brand {
+  id: number;
+  name: string;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+}
+
 export interface Product {
   id?: number;
   name: string;
-  price: string;
+  price: number;
   gender: number;
-  brand: number;
-  category: number;
   color: number;
+  created_at: string;
+  images: string[];
+  brand: Brand;
+  categories: Category[];
+  size: number[];
 }
 
 interface ProductsState {
@@ -24,18 +37,20 @@ const initialState: ProductsState = {
   error: null,
 };
 
-export const fetchProducts = createAsyncThunk("products/fetch", async () => {
-  const res = await api.get("/products");
-  return res.data.data;
-});
 
-export const addProduct = createAsyncThunk(
-  "products/addProduct",
-  async (newProduct: Product) => {
-    const res = await api.post("/products", newProduct);
-    return res.data.data;
+export const fetchProducts = createAsyncThunk("products/fetch", async () => {
+  try {
+    const res = await api.get("/products");
+    if (res.status === 200) {
+      return res.data.data;
+    } else {
+      throw new Error("Failed to fetch products");
+    }
+  } catch (error: any) {
+   
+    throw new Error(error?.response?.data?.message || error.message || "Error fetching products");
   }
-);
+});
 
 const productsSlice = createSlice({
   name: "products",
@@ -45,18 +60,16 @@ const productsSlice = createSlice({
     builder
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
-        state.error = null;
+        state.error = null; 
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.products = action.payload;
         state.loading = false;
       })
-      .addCase(fetchProducts.rejected, (state) => {
+      .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = "Error fetching products";
-      })
-      .addCase(addProduct.fulfilled, (state, action) => {
-        state.products.push(action.payload);
+       
+        state.error = action.error.message || "Error fetching products";
       });
   },
 });

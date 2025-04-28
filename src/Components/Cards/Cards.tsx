@@ -12,8 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { fetchProducts } from "../../Redux/slices/productSlice";
 
+
 interface Product {
-  id: number;
+  id?: number;
   name: string;
   price: number;
   images: string[];
@@ -79,7 +80,7 @@ export const Cards: FC = () => {
                       {product.name}
                     </p>
                   <div className="product-info">
-                    {/* Prikazujemo samo prvu kategoriju i brend za svaki proizvod */}
+                  
                     
                     <p className="product-category">
                       {t("product-category")}: {product.categories[0]?.name}

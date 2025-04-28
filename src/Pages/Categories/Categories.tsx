@@ -21,32 +21,27 @@ const Categories: React.FC = () => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
-
   const itemsPerPage = 10; 
   const [currentPage, setCurrentPage] = useState(0);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
   };
- 
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCategoryName(e.target.value);
   };
 
- 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!categoryName.trim()) return;
 
-    
     dispatch(addCategory({ name: categoryName }));
 
-    
     setCategoryName("");
     setShowForm(false);
   };
 
-  
   const currentCategories = categories.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
@@ -54,7 +49,6 @@ const Categories: React.FC = () => {
 
   return (
     <div className="category-main">
-      
       <div className="category_add_item">
         <button className="btn-addCategory" onClick={() => setShowForm(!showForm)}>
           <AddIcon />
@@ -62,7 +56,6 @@ const Categories: React.FC = () => {
         </button>
       </div>
 
-     
       {showForm && (
         <form onSubmit={handleSubmit} className="category-form">
           <h3>Add New Category</h3>
@@ -87,11 +80,9 @@ const Categories: React.FC = () => {
         </form>
       )}
 
-  
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-     
       <div className="category_table">
         {categories && categories.length > 0 ? (
           <table>
@@ -139,7 +130,6 @@ const Categories: React.FC = () => {
         )}
       </div>
 
-      
       <div className="pagination-container">
         <ReactPaginate
           previousLabel={"<"}
