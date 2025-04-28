@@ -2,12 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/axiosInstance";
 
 export interface Sizes {
-    id: number;
-    size: string; 
-    created_at: string;
-    updated_at: string | null;
-
-  
+  id: number;
+  size: string;
+  amount: number;
+  created_at: string;
+  updated_at: string | null;
 }
 
 interface SizesState {
@@ -22,14 +21,27 @@ const initialState: SizesState = {
   error: null,
 };
 
-// Get sizes
 export const fetchSizes = createAsyncThunk("sizes/fetch", async () => {
   const res = await api.get("/sizes");
-  console.log("API response:", res.data); 
   return res.data;
 });
 
+export const addSize = createAsyncThunk(
+  "sizes/add",
+  async (size: string, { dispatch, rejectWithValue }) => {
+    try {
+      const res = await api.post("/sizes", { size });
 
+      dispatch(fetchSizes());
+
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Error adding size"
+      );
+    }
+  }
+);
 
 const sizesSlice = createSlice({
   name: "sizes",
@@ -45,9 +57,20 @@ const sizesSlice = createSlice({
         state.sizes = action.payload;
         state.loading = false;
       })
-      .addCase(fetchSizes.rejected, (state, action) => {
+      .addCase(fetchSizes.rejected, (state) => {
         state.loading = false;
-        state.error = "Error";
+        state.error = "Error fetching sizes";
+      })
+      .addCase(addSize.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addSize.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(addSize.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });

@@ -21,6 +21,7 @@ export const store = configureStore({
     sizes:sizesReducer,
     discounts:discountsReducer,
     filters: filtersReducer,
+    
   },
 });
 

@@ -2,14 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/axiosInstance";
 
 export interface Category {
-    id: number;
-    name: string;
-  
-    created_at: string;
-   
-    updated_at: string | null;
-
-  
+  id: number;
+  name: string;
+  created_at: string;
+  updated_at: string | null;
 }
 
 interface CategoryState {
@@ -24,16 +20,26 @@ const initialState: CategoryState = {
   error: null,
 };
 
-// Get category
-export const fetchCategories= createAsyncThunk("categories/fetch", async () => {
+// Get categories
+export const fetchCategories = createAsyncThunk("categories/fetch", async () => {
   const res = await api.get("/categories");
-  console.log("API response:", res.data); 
   return res.data;
 });
 
+// Add category
+export const addCategory = createAsyncThunk(
+  "categories/add",
+  async (newCategory: { name: string }, { dispatch }) => {
+    const res = await api.post("/categories", newCategory);
 
+    // Fetch categories again after adding the new category
+    dispatch(fetchCategories());
 
-const categoriessSlice = createSlice({
+    return res.data;
+  }
+);
+
+const categoriesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {},
@@ -47,11 +53,21 @@ const categoriessSlice = createSlice({
         state.categories = action.payload;
         state.loading = false;
       })
-      .addCase(fetchCategories.rejected, (state, action) => {
+      .addCase(fetchCategories.rejected, (state) => {
         state.loading = false;
-        state.error = "Error";
+        state.error = "Error fetching categories";
+      })
+      .addCase(addCategory.fulfilled, (state, action) => {
+        const newCategory = {
+          id: action.payload.id,
+          name: action.payload.name,
+          created_at: action.payload.created_at ?? new Date().toISOString(),
+          updated_at: action.payload.updated_at ?? null,
+        };
+
+        state.categories.push(newCategory);
       });
   },
 });
 
-export default categoriessSlice.reducer;
+export default categoriesSlice.reducer;

@@ -1,28 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/axiosInstance";
 
-export interface Product {
+interface Image {
+  name: string;
+  path: string;
+  is_main: number;
+}
+interface Category {
+  id: number;
+}
+interface Discount {
+  id: number;
+}
+interface Size {
+  id: number;
+  amount: number;
+}
+interface Product {
   id: number;
   name: string;
   price: number;
+  gender: number;
+  color_id: number;
+  brand_id: number;
+  isFavorite: boolean;
+  images: Image[];
+  categories: Category[];
+  discounts: Discount[];
+  sizes: Size[];
+  description?: string;
   created_at: string;
-  images:string[];
-  gender: number; 
-  color_id: number;  
-  brand_id: number;  
-  total_ratings: number;
-  avg_rating: string;
-  isFavorite: number;
-  updated_at: string | null;
-  brand: {
-    id: number;
-    name: string;
-  };
-  categories: {
-    id: number;
-    name: string;
-  }[];
-  
 }
 
 interface ProductsState {
@@ -37,18 +44,39 @@ const initialState: ProductsState = {
   error: null,
 };
 
-// Get products
 export const fetchProducts = createAsyncThunk("products/fetch", async () => {
-  const res = await api.get("/products");
-  console.log("API response:", res.data); 
-  return res.data.data;
+  try {
+    const res = await api.get("/products");
+    if (res.status === 200) {
+      return res.data.data;
+    } else {
+      throw new Error("Failed to fetch products");
+    }
+  } catch (error: any) {
+    throw new Error(
+      error?.response?.data?.message ||
+        error.message ||
+        "Error fetching products"
+    );
+  }
 });
 
 export const addProduct = createAsyncThunk(
-  "products/addProduct",
-  async (newProduct: Product) => {
-    const res = await api.post("/products", newProduct);
-    return res.data.data; // Vraća novi proizvod
+  "products/add",
+  async (formData: FormData, { dispatch, rejectWithValue }) => {
+    try {
+      const res = await api.post("/products", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      dispatch(fetchProducts());
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Error adding product"
+      );
+    }
   }
 );
 
@@ -68,7 +96,19 @@ const productsSlice = createSlice({
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = "Error";
+
+        state.error = action.error.message || "Error fetching products";
+      })
+      .addCase(addProduct.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addProduct.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(addProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });
