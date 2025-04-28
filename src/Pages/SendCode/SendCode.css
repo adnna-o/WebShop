@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative; /* Omogućava pozicioniranje back dugmeta unutar ovog elementa */
+    position: relative; 
     padding: 40px 50px 30px;
     width: 350px;
 }

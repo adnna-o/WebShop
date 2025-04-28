@@ -2,10 +2,10 @@
     "subtitle": "In the mood for new",
     "title": "Style",
     "button": "Shop now",
-    "women": "women",
-    "men": "men",
-    "children": "children",
-    "all": "all",
+    "women": "Women",
+    "men": "Men",
+    "children": "Children",
+    "all": "All",
     "mision": "Our mission is to provide our customers with a seamless online shopping experience for high-quality, stylish clothing that empowers them to look and feel their best. We are committed to offering a wide range of modern clothing options that are both functional and fashionable, and we aim to make our customers lives easier by delivering exceptional service and exceptional products at affordable prices.",
     "vision": "Our vision is to become the go-to online destination for quality and modern clothing that inspires confidence and individuality. We strive to be a trusted source for fashion-forward individuals who value style and substance in their clothing choices. By continuously innovating and adapting to changing fashion trends, we aim to remain at the forefront of the online fashion industry, while maintaining our commitment to providing excellent customer service and high-quality products.",
     "titletwo":"New in this week",
@@ -27,8 +27,47 @@
     "darkMode": "Dark mode",
     "lightMode": "Light mode",
     "logOut": "Log Out",
-    "signIn": "Sign In"
-
+    "signIn": "Sign In",
+    "resetFilter": "Reset All",
+    "category": "Category",
+    "brand": "Brand", 
+    "size": "Size",
+    "color": "Color",
+    "priceRange": "Price range",
+    "noResultsFound":"Sorry, no results found for your search/filter. Please try again with different keywords or filters.",
+    "gender": {
+        "men": "Men",
+        "women": "Women",
+        "children": "Children",
+        "all":"All"
+      },
+    "shop": "Prodavnica",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "requiredField": "Required field",
+    "invalidEmail": "Invalid email format",
+    "passwordStrength": "Password must be at least 8 characters long, include upper and lower case letters, a number, and a special character.",
+    "passwordMismatch": "Passwords do not match",
+    "submitButton": "Go to Sign Up",
+    "apiError": "Registration failed.",
+    "loginLink": "Login",
+    "forgotPasswordLink": "Forgot password?",
+    "codeSent":"2FA Code is sent to your email!",
+    "loginError": "There was an error with the email or password. Please try again.",
+    "submitLoginButton": "Log In",
+    "registerLink": "Go to Sign Up",
+    "codeError":"Validation key is not valid.",
+    "2FAKey":"Two Factor Authentication",
+    "2FATitle":" Enter 6-digit code that has been sent to your mail.",
+    "ConfirmCode":"Confirm"
+    
+  
+    
+  
+   
 
 
   }

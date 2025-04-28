@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../api/axiosInstance';
 import EyeOffIcon from '../../Components/EyeOffIcon/EyeOffIcon';
 import Input from '../../Components/Input/Input'; 
+import { useTranslation } from 'react-i18next';
+import { toast, ToastContainer } from 'react-toastify';
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -28,6 +30,7 @@ const SignIn: React.FC = () => {
   const [apiError, setApiError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const {t} = useTranslation();
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -55,30 +58,30 @@ const SignIn: React.FC = () => {
     if (name === 'email') {
       setErrors((prev) => ({
         ...prev,
-        email: value.trim() === '' ? 'Required field, invalid email format' : validateEmail(value) ? '' : 'Required field, invalid email format',
+        email: value.trim() === '' ? t('requiredField') : validateEmail(value) ? '' : t('requiredField'),
       }));
     }
 
     if (name === 'password') {
       setErrors((prev) => ({
         ...prev,
-        password: value.trim() === '' ? 'Password must be at least 8 characters long, include upper and lower case letters, a number, and a special character.' : validatePassword(value)
+        password: value.trim() === '' ? t('passwordStrength') : validatePassword(value)
           ? ''
-          : 'Password must be at least 8 characters long, include upper and lower case letters, a number, and a special character.',
+          : t('passwordStrength'),
       }));
     }
 
     if (name === 'confirmPassword') {
       setErrors((prev) => ({
         ...prev,
-        confirmPassword: value === form.password ? '' : 'Passwords do not match',
+        confirmPassword: value === form.password ? '' :  t('passwordMismatch'),
       }));
     }
 
     if (name === 'firstName' || name === 'lastName') {
       setErrors((prev) => ({
         ...prev,
-        [name]: value.trim() === '' ? 'Required fields' : '',
+        [name]: value.trim() === '' ? t('requiredField') : '',
       }));
     }
   };
@@ -88,25 +91,25 @@ const SignIn: React.FC = () => {
 
     if (name === 'firstName' || name === 'lastName') {
       if (value.trim() === '') {
-        setErrors((prev) => ({ ...prev, [name]: 'Required fields' }));
+        setErrors((prev) => ({ ...prev, [name]: t('requiredField') }));
       } else {
         setErrors((prev) => ({ ...prev, [name]: '' }));
       }
     }
 
     if (name === 'email' && !validateEmail(value)) {
-      setErrors((prev) => ({ ...prev, email: 'Required field, invalid email format.' }));
+      setErrors((prev) => ({ ...prev, email: t('invalidEmail') }));
     }
 
     if (name === 'password' && !validatePassword(value)) {
       setErrors((prev) => ({
         ...prev,
-        password: 'Password must have at least 8 characters, one capital letter, one small letter, one number, and one special character.',
+        password: t('passwordStrength'),
       }));
     }
 
     if (name === 'confirmPassword' && value !== form.password) {
-      setErrors((prev) => ({ ...prev, confirmPassword: 'Passwords do not match' }));
+      setErrors((prev) => ({ ...prev, confirmPassword: t('passwordMismatch')  }));
     }
   };
 
@@ -132,19 +135,22 @@ const SignIn: React.FC = () => {
       console.log('Registration response:', response.data);
       navigate('/login');
     } catch (error: any) {
-      console.error('API Error:', error);
-      if (error.response && error.response.data && error.response.data.message) {
-        setApiError(error.response.data.message);
-      } else {
-        setApiError('Registration failed.');
-      }
-
-      setTimeout(() => setApiError(null), 3000);
+      const errorMessage = t('apiError');
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored"
+      });
     }
   };
 
   return (
     <div className="signin-modal">
+      <ToastContainer />
       <div className="signin-main">
         <img className="signin-img" src="/images/avatar-removebg-preview.png" alt="SignIn" />
         <form className="signin-form" onSubmit={handleSubmit}>
@@ -152,7 +158,7 @@ const SignIn: React.FC = () => {
             <Input
               type="text"
               name="firstName"
-              placeholder="First name"
+              placeholder={t('firstName')}
               value={form.firstName}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -162,7 +168,7 @@ const SignIn: React.FC = () => {
             <Input
               type="text"
               name="lastName"
-              placeholder="Last name"
+              placeholder={t('lastName')}
               value={form.lastName}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -176,7 +182,7 @@ const SignIn: React.FC = () => {
           <Input
             type="email"
             name="email"
-            placeholder="Email address"
+            placeholder={t('email')}
             value={form.email}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -189,7 +195,7 @@ const SignIn: React.FC = () => {
             <Input
               type={showPassword ? 'text' : 'password'}
               name="password"
-              placeholder="Password"
+              placeholder={t('password')}
               value={form.password}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -206,7 +212,7 @@ const SignIn: React.FC = () => {
             <Input
               type={showConfirmPassword ? 'text' : 'password'}
               name="confirmPassword"
-              placeholder="Confirm Password"
+              placeholder={t('confirmPassword')}
               value={form.confirmPassword}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -220,15 +226,15 @@ const SignIn: React.FC = () => {
           {errors.confirmPassword && <span className="error-text">{errors.confirmPassword}</span>}
 
           <button type="submit" disabled={!isFormValid()}>
-            Go to Sign Up
+          {t('submitButton')}
           </button>
         </form>
 
         {apiError && <div className="api-error">{apiError}</div>}
 
         <div className="login-info">
-          <a href="/login">Login</a>
-          <a href="/forgotPassword">Forgot password?</a>
+          <a href="/login">{t('loginLink')}</a>
+          <a href="/forgotPassword">{t('forgotPasswordLink')}</a>
         </div>
       </div>
     </div>

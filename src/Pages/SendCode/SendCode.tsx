@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../Redux/store';
 import { verifyOtp } from '../../Redux/slices/authSlice';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer, ToastContent } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 
 const SendCode: React.FC = () => {
@@ -15,8 +16,8 @@ const SendCode: React.FC = () => {
   const { email, password, token } = useSelector((state: RootState) => state.auth);
 
   const [codeDigits, setCodeDigits] = useState<string[]>(['', '', '', '', '', '']);
-  const [errorMessage, setErrorMessage] = useState('');
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
+  const {t} = useTranslation();
 
   useEffect(() => {
     if (token) {
@@ -57,8 +58,8 @@ const SendCode: React.FC = () => {
       const response = await dispatch(verifyOtp({ email, password, otp_code })).unwrap();
       navigate('/');
     } catch (error: any) {
-      const msg = error?.message || 'Validation key is not valid.';
-      toast.error(msg, {
+      const content: ToastContent = t('codeError');
+      toast.error(content, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -83,7 +84,7 @@ const SendCode: React.FC = () => {
           <div className='code-icon'>
             <LockIcon />
           </div>
-          <p className='code-title'>Two Factor Authentication</p>
+          <p className='code-title'>{t('2FAKey')}</p>
           <div className='code-input-container'>
             {codeDigits.map((digit, index) => (
               <input
@@ -103,14 +104,14 @@ const SendCode: React.FC = () => {
             ))}
           </div>
           <p className='code-description'>
-            Enter 6-digit code that has been sent to your mail.
+          {t('2FATitle')}
           </p>
           <div className='code-button-container'>
             <button className='code-button' disabled={!isCodeComplete} onClick={handleSubmit}>
-              Confirm
+            {t('ConfirmCode')}
             </button>
           </div>
-          {errorMessage && <p className='code-error'>{errorMessage}</p>}
+        
         </div>
       </div>
     </>

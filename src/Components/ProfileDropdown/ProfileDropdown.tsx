@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Account from "../Account/Account";
-import LogOut from "../LogOut/LogOut";
 import Settings from "../Settings/Settings";
 import "./ProfileDropdown.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import api from "../../api/axiosInstance";
 
 
 
@@ -13,6 +14,8 @@ const ProfileDropdown: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [userData, setUserData] = useState<{ ime: string; prezime: string; email: string } | null>(null);
+  const {t} = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -35,11 +38,19 @@ const ProfileDropdown: React.FC = () => {
         }
       }
     } catch (error) {
-      console.error("Greška pri parsiranju korisnika iz localStorage:", error);
+      console.error(error);
     }
   }, []);
   
-
+  const handleLogout = async () => {
+    
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+    navigate('/');
+   
+  };
 
   return (
     <div className="profile-dropdown">
@@ -53,8 +64,7 @@ const ProfileDropdown: React.FC = () => {
           </div>
           {isAdmin ? (
           <Link to="/adminPanel" className="admin-panel">Admin panel</Link>) : null}
-          <div className="log-out">
-            <LogOut />
+          <div className="log-out" onClick={handleLogout}>{t('logOut')}
           </div>
         </>
       ) : (
@@ -63,7 +73,7 @@ const ProfileDropdown: React.FC = () => {
             <Settings />
           </div>
           <div className="sign-in">
-          <Link to="/login" className="sign-in">SignIn</Link>
+          <Link to="/login" className="sign-in">{t('signIn')}</Link>
           </div>
         </>
       )}
@@ -72,3 +82,5 @@ const ProfileDropdown: React.FC = () => {
 };
 
 export default ProfileDropdown;
+
+

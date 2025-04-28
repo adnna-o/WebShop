@@ -33,7 +33,13 @@
     padding-top: 10px;
     padding-bottom: 10px;
     margin-left: 10px;
+    font-family: 'Glory', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: var(--primary-color-1);
+    cursor: pointer;
   }
+  
 
   .admin-panel{
     padding-top: 20px;

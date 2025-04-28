@@ -40,7 +40,6 @@ export const login = createAsyncThunk<any, { email: string; password: string }, 
     async (data, { rejectWithValue }) => {
       try {
         const response = await api.post('/login', data); 
-        console.log(response);
         return response.data;
       } catch (error: any) {
         const message = error?.response?.data?.message || 'Greška pri verifikaciji OTP koda';
@@ -56,7 +55,9 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('user');
     },
   },
   extraReducers: (builder) => {
@@ -90,6 +91,10 @@ const authSlice = createSlice({
           console.error("Token nije pronađen u odgovoru:", action.payload.token);
           state.error = 'Token nije pronađen u odgovoru';
         }
+      })
+      .addCase(verifyOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || 'Greška pri verifikaciji OTP koda';
       });
       
   },

@@ -5,7 +5,11 @@ import './FilterSidebar.css';
 import MultiRangeSlider from "multi-range-slider-react";    
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../Redux/store';
-import { setBrandFilter, setCategoryFilter, setColorFilter, setPriceRange, setSizeFilter } from '../../Redux/slices/filterSlice';
+import { resetFilters, setBrandFilter, setCategoryFilter, setColorFilter, setPriceRange, setSizeFilter } from '../../Redux/slices/filterSlice';
+import ArrowDownIcon from '../ArrowDownIcon/ArrowDownIcon';
+import XIcon from '../XIcon/XIcon';
+import FilterButton from '../FilterButton/FilterButton';
+import { useTranslation } from 'react-i18next';
 
 const FiltersSidebar: React.FC = () => {
 
@@ -14,108 +18,124 @@ const FiltersSidebar: React.FC = () => {
   const [brands, setBrands] = useState([]);
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState<Size[]>([]);
-  const [selectedSizes, setSelectedSize] = useState<number[]>([]); 
-  const dispatch = useDispatch();
+  const [localMinPrice, setLocalMinPrice] = useState(0);
+  const [localMaxPrice, setLocalMaxPrice] = useState(5000);
+  const [visible, setVisible] = useState<Record<FilterType, boolean>>({
+    categories: false,
+    brands: false,
+    sizes: false,
+    colors: false,
+  });
   const minValue = useSelector((state: RootState) => state.filters.min_price);
   const maxValue = useSelector((state: RootState) => state.filters.max_price);
+  const categoriesFilter = useSelector((state: RootState) => state.filters.categories);
+  const brandsFilter = useSelector((state: RootState) => state.filters.brands);
+  const sizesFilter = useSelector((state: RootState) => state.filters.sizes);
+  const colorsFilter = useSelector((state: RootState) => state.filters.colors);
+  const gender = useSelector((state: RootState) => state.filters.genders);
+  const selectedColors = useSelector((state: RootState) => state.filters.colors);
+  const dispatch = useDispatch();
+  const {t} = useTranslation();
+  
+  useEffect(() => {
+    fetchBrands();
+  }, []);
+  useEffect(()=>{
+    fetchCategory();
+  }, []);
+  useEffect(()=>{
+    fetchSizes();
+  }, []);
+  useEffect(()=>{
+    fetchColors();
+  }, []);
+  useEffect(() => {
+    resetAllFilters();
+  }, [gender]);
 
   type FilterType = 'categories' | 'brands' | 'sizes' | 'colors';
-  type Size = {
-    id: number;
-    size: string;
-  };
-
-  const [visible, setVisible] = useState<Record<FilterType, boolean>>({
-  categories: true,
-  brands: true,
-  sizes: true,
-  colors: true,
-});
+  type Size = {id: number; size: string;};
 
 const toggleVisibility = (type: FilterType) => {
   setVisible((prev) => ({ ...prev, [type]: !prev[type] }));
 };
 
-const handleSizeClick = (sizeId: number) => {
-    const newSelectedSizes = selectedSizes.includes(sizeId)
-      ? selectedSizes.filter(id => id !== sizeId)  
-      : [...selectedSizes, sizeId];  
-  
-    setSelectedSize(newSelectedSizes);  
-    dispatch(setSizeFilter(newSelectedSizes));  
+  const hasActiveFilters = () => {
+    return (
+      minValue !== 0 ||
+      maxValue !== 5000 ||
+      categoriesFilter.length > 0 ||
+      brandsFilter.length > 0 ||
+      sizesFilter.length > 0 ||
+      colorsFilter.length > 0
+    );
   };
 
-  useEffect(() => {
-    const fetchBrands = async () => {
-      try {
-        const response = await api.get('/brands');
-        const brandsData = response.data[0];  
-        setBrands(brandsData);  
-      } catch (error) {
-        console.error('Greška prilikom dohvaćanja brendova:', error);
-      }
-    };
+  const resetAllFilters = () => {
+    dispatch(resetFilters());
+    setLocalMinPrice(0);
+    setLocalMaxPrice(5000);
+  };
   
-    fetchBrands();
-  }, []);
+  const fetchBrands = async () => {
+    try {
+      const response = await api.get('/brands');
+      const brandsData = response.data.data;  
+      setBrands(brandsData);  
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  useEffect(()=>{
-    const fetchCategory=async ()=>{
+  const fetchCategory=async ()=>{
     try {
       const response= await api.get('/categories');
       setCategories(response.data);
     } catch (error) {
-      console.error('Greška prilikom dohvaćanja kategorija:', error);
+      console.error(error);
     }
     }
 
-    fetchCategory();
-
-  }, []);
-
-  useEffect(()=>{
-    const fetchSizes=async ()=>{
+  const fetchSizes=async ()=>{
     try {
       const response= await api.get('/sizes'); 
       setSizes(response.data);
     } catch (error) {
-      console.error('Greška prilikom dohvaćanja velicina:', error);
+      console.error(error);
     }
     }
 
-    fetchSizes();
-
-  }, []);
-
-  useEffect(()=>{
-    const fetchColors=async ()=>{
+  const fetchColors=async ()=>{
     try {
       const response= await api.get('/colors');  
       setColors(response.data);
     } catch (error) {
-      console.error('Greška prilikom dohvaćanja boja:', error);
+      console.error(error);
     }
     }
-
-    fetchColors();
-
-  }, []);
-
 
   return (
     <div className="side-box">
+      
       {/* Category Filter */}
       <div className="side-item">
         <div className="side-item-header" onClick={() => toggleVisibility('categories')}>
-          <p className="side-item-title">Category</p>
+          <p className="side-item-title" style={{ cursor: 'pointer' }}>{t('category')}</p>
+          {visible.categories ? (
           <ArrowUpIcon style={{ cursor: 'pointer' }} />
+        ) : (
+        <ArrowDownIcon style={{ cursor: 'pointer' }} />
+         )}
         </div>
         {visible.categories && (
           <ul>
             {categories.map((category: any) => (
-              <li key={category.id} onClick={() => dispatch(setCategoryFilter(category.id))}>
-              {category.name}
-            </li>
+              <FilterButton
+              key={category.id}
+              label={category.name}
+              onClick={() => dispatch(setCategoryFilter(category.id))}
+              isSelected={categoriesFilter.includes(category.id)}
+            />
             ))}
           </ul>
         )}
@@ -124,15 +144,22 @@ const handleSizeClick = (sizeId: number) => {
       {/* Brand Filter */}
       <div className="side-item">
         <div className="side-item-header" onClick={() => toggleVisibility('brands')}>
-          <p className="side-item-title">Brand</p>
+          <p className="side-item-title" style={{ cursor: 'pointer' }}>{t('brand')}</p>
+          {visible.brands ? (
           <ArrowUpIcon style={{ cursor: 'pointer' }} />
+          ) : (
+         <ArrowDownIcon style={{ cursor: 'pointer' }} />
+         )}
         </div>
         {visible.brands && (
           <ul>
             {brands.map((brand: any) => (
-              <li key={brand.id} onClick={() => dispatch(setBrandFilter(brand.id))}>
-              {brand.name}
-            </li>
+              <FilterButton
+              key={brand.id}
+              label={brand.name}
+              onClick={() => dispatch(setBrandFilter(brand.id))}
+              isSelected={brandsFilter.includes(brand.id)}
+            />
             ))}
           </ul>
         )}
@@ -140,23 +167,27 @@ const handleSizeClick = (sizeId: number) => {
 
       {/* Size Filter */}
       <div className="side-item">
-  <div className="side-item-header" onClick={() => toggleVisibility('sizes')}>
-    <p className="side-item-title">Size</p>
-    <ArrowUpIcon style={{ cursor: 'pointer' }} />
-  </div>
-  {visible.sizes && (
-    <div className="filter-sizes">
+       <div className="side-item-header" onClick={() => toggleVisibility('sizes')}>
+      <p className="side-item-title" style={{ cursor: 'pointer' }}>{t('size')}</p>
+      {visible.sizes ? (
+          <ArrowUpIcon style={{ cursor: 'pointer' }} />
+        ) : (
+        <ArrowDownIcon style={{ cursor: 'pointer' }} />
+         )}
+      </div>
+      {visible.sizes && (
+      <div className="filter-sizes">
       {sizes
         .filter((value, index, self) => index === self.findIndex((t) => t.size === value.size))
         .sort((a, b) => sizeOrder.indexOf(a.size) - sizeOrder.indexOf(b.size))
         .map((size: any) => (
-          <div
-            key={size.id}
-            onClick={() => handleSizeClick(size.id)} 
-            className={`size-item ${selectedSizes.includes(size.id) ? 'selected' : ''}`} 
-          >
-            {size.size}
-          </div>
+          <FilterButton
+              key={size.id}
+              label={size.size}
+              onClick={() => dispatch(setSizeFilter(size.id))}
+              isSelected={sizesFilter.includes(size.id)}
+              className="size" 
+            />
         ))}
     </div>
   )}
@@ -165,50 +196,76 @@ const handleSizeClick = (sizeId: number) => {
       {/* Color Filter */}
       <div className="side-item">
         <div className="side-item-header" onClick={() => toggleVisibility('colors')}>
-          <p className="side-item-title">Color</p>
+          <p className="side-item-title" style={{ cursor: 'pointer' }}>{t('color')}</p>
+          {visible.colors ? (
           <ArrowUpIcon style={{ cursor: 'pointer' }} />
+        ) : (
+        <ArrowDownIcon style={{ cursor: 'pointer' }} />
+         )}
         </div>
         {visible.colors && (
           <div className="filter-colors">
             {colors.map((color: any) => (
-              <div
-                key={color.id}
-                className="color-item"
-                onClick={() => dispatch(setColorFilter(color.id))}
-                style={{
-                  backgroundColor: color.hex_code
-                }}
-              ></div>
-            ))}
-          </div>
-        )}
+           <div
+            key={color.id}
+            className="color-item"
+            onClick={() => dispatch(setColorFilter(color.id))}
+            style={{
+            backgroundColor: color.hex_code,
+            border: selectedColors.includes(color.id)? '3px solid var(--button-border)': 'none',
+           }}
+          ></div>
+        ))}
+      </div>
+      )}
       </div>
 
 
     {/* Range Filter */}
-<div className="side-item">
-  <div className="side-item-header">
+    <div className="side-item">
+    <div className="side-item-header">
     <p className="side-item-title">
-      Price Range: ${minValue} - ${maxValue} 
+    {t('priceRange')}: ${minValue} - ${maxValue} 
     </p>
-  </div>
-  <div style={{ padding: '0 10px' }}>
+    </div>
+    <div>
     <MultiRangeSlider
       min={0}
       max={5000}
-      step={5}
-      ruler={false}
-      label={false}
-      minValue={minValue}
-      maxValue={maxValue}
+      minValue={localMinPrice}
+      maxValue={localMaxPrice}
       onChange={(e) => {        
-        dispatch(setPriceRange({ min: e.minValue, max: e.maxValue }));
+        setLocalMinPrice(e.minValue);
+        setLocalMaxPrice(e.maxValue);
+         dispatch(setPriceRange({ min: e.minValue, max: e.maxValue }));
       }}
+      label={false}
+      ruler={false}
+      style={{ 
+         border: "none", 
+        boxShadow: "none", 
+        padding: "15px 10px" 
+      }}
+      barLeftColor="#f0f0f0"
+      barInnerColor=" #564fcb"
+      barRightColor="#f0f0f0"
+      thumbLeftColor="#fff"
+      thumbRightColor="#fff"
     />
+   </div>
   </div>
+
+  {/* Reset Filters Button */}
+  {hasActiveFilters() && (
+  <div className="reset-filters">
+    <XIcon size="20px" /> 
+    <span className="reset-button" onClick={resetAllFilters}>{t('resetFilter')}</span>
+  </div>
+  )}
+
 </div>
-    </div>
-  );
-};
+)};
+
+
 
 export default FiltersSidebar;
