@@ -32,7 +32,6 @@ const Sizes: FC = () => {
     e.preventDefault();
     if (!newSize.trim()) return;
 
-   
     dispatch(addSize(newSize));
 
     setNewSize("");

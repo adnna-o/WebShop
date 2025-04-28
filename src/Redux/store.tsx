@@ -7,7 +7,7 @@ import colorsReducer from "./slices/colorSlice";
 import sizesReducer from "./slices/sizeSlice";
 import discountsReducer from "./slices/discountSlice";
 import filtersReducer from './slices/filterSlice';
-import gendersReducer from './slices/genderSlice';
+
 
 
 
@@ -21,7 +21,7 @@ export const store = configureStore({
     sizes:sizesReducer,
     discounts:discountsReducer,
     filters: filtersReducer,
-    genders: gendersReducer,
+    
   },
 });
 

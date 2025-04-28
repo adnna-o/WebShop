@@ -20,27 +20,27 @@ const initialState: BrandsState = {
   error: null,
 };
 
-// Get brands
 export const fetchBrands = createAsyncThunk("brands/fetch", async () => {
   const res = await api.get("/brands");
-  console.log("API response:", res.data);
   return res.data.data;
 });
 
-// Create brand
 export const createBrand = createAsyncThunk(
   "brands/create",
-  async (newBrand: { name: string; created_at: string; updated_at: string | null }, { dispatch, rejectWithValue }) => {
+  async (
+    newBrand: { name: string; created_at: string; updated_at: string | null },
+    { dispatch, rejectWithValue }
+  ) => {
     try {
       const res = await api.post("/brands", newBrand);
-      console.log("Brand added:", res.data);
 
-    
       dispatch(fetchBrands());
 
       return res.data.data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || "Failed to create brand");
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to create brand"
+      );
     }
   }
 );
@@ -68,7 +68,6 @@ const brandsSlice = createSlice({
         state.error = null;
       })
       .addCase(createBrand.fulfilled, (state, action) => {
-       
         state.loading = false;
       })
       .addCase(createBrand.rejected, (state, action) => {

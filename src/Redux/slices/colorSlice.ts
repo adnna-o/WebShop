@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/axiosInstance";
 
-
 export interface Colors {
   id: number;
   name: string;
@@ -22,30 +21,30 @@ const initialState: ColorsState = {
   error: null,
 };
 
-
 export const fetchColors = createAsyncThunk("colors/fetch", async () => {
   const res = await api.get("/colors");
-  console.log("API response:", res.data);
   return res.data;
 });
 
-
 export const addColor = createAsyncThunk(
-  'colors/addColor',
-  async (color: { name: string; hex_code: string }, { dispatch, rejectWithValue }) => {
+  "colors/addColor",
+  async (
+    color: { name: string; hex_code: string },
+    { dispatch, rejectWithValue }
+  ) => {
     try {
-      const response = await api.post('/colors', color);
+      const response = await api.post("/colors", color);
 
-     
       dispatch(fetchColors());
 
       return response.data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || "Error adding color");
+      return rejectWithValue(
+        error.response?.data?.message || "Error adding color"
+      );
     }
   }
 );
-
 
 const colorsSlice = createSlice({
   name: "colors",
@@ -53,7 +52,7 @@ const colorsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      
+
       .addCase(fetchColors.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -66,13 +65,12 @@ const colorsSlice = createSlice({
         state.loading = false;
         state.error = "Error fetching colors";
       })
-      
+
       .addCase(addColor.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(addColor.fulfilled, (state, action) => {
-        
         state.loading = false;
       })
       .addCase(addColor.rejected, (state, action) => {

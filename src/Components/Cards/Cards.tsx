@@ -13,26 +13,38 @@ import { AppDispatch, RootState } from "../../Redux/store";
 import { fetchProducts } from "../../Redux/slices/productSlice";
 
 
-interface Product {
-  id?: number;
+interface CardProduct {
+  id: number;
   name: string;
   price: number;
-  images: string[];
-  brand: {
-    id: number;
+  gender: number;
+  color_id: number;
+  brand_id: number;
+  isFavorite: boolean;
+  images: {
     name: string;
-  };
+    path: string;
+    is_main: number;
+  }[];
   categories: {
     id: number;
-    name: string;
   }[];
+  discounts: {
+    id: number;
+  }[];
+  sizes: {
+    id: number;
+    amount: number;
+  }[];
+  description?: string;
+  created_at: string;
 }
 
 export const Cards: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
 
-  const products = useSelector((state: RootState) => state.products.products);
+  const products = useSelector((state: RootState) => state.products.products) as CardProduct[];
   const status = useSelector((state: RootState) => state.products.loading);
 
   useEffect(() => {
@@ -41,7 +53,7 @@ export const Cards: FC = () => {
     }
   }, [dispatch, products.length]);
 
-  const groupedProducts: Product[][] = products.reduce<Product[][]>(
+  const groupedProducts: CardProduct[][] = products.reduce<CardProduct[][]>(
     (acc, product, index) => {
       const groupIndex = Math.floor(index / 4);
       if (!acc[groupIndex]) acc[groupIndex] = [];
@@ -68,25 +80,23 @@ export const Cards: FC = () => {
               {group.map((product) => (
                 <div className="card" key={product.id}>
                   <div className="product-image-wrapper">
-                    {product.images?.length > 0 && (
+                    {product.images.length > 0 && (
                       <img
-                        src="/images/children.webp"
+                        src={"/images/children.webp"} 
                         alt={product.name}
                       />
                     )}
                     <button className="btn-price">${product.price}</button>
                   </div>
                   <p className="product-name">
-                      {product.name}
-                    </p>
+                    {product.name}
+                  </p>
                   <div className="product-info">
-                  
-                    
                     <p className="product-category">
-                      {t("product-category")}: {product.categories[0]?.name}
+                      {t("product-category")}: {product.categories[0]?.id || "N/A"}
                     </p>
                     <p className="product-brand">
-                      {t("product-brand")}: {product.brand.name}
+                      {t("product-brand")}: {product.brand_id}
                     </p>
                   </div>
                   <div className="card-buttons">

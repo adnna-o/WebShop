@@ -4,6 +4,7 @@ import api from "../../api/axiosInstance";
 export interface Sizes {
   id: number;
   size: string;
+  amount: number;
   created_at: string;
   updated_at: string | null;
 }
@@ -20,26 +21,24 @@ const initialState: SizesState = {
   error: null,
 };
 
-// Get sizes
 export const fetchSizes = createAsyncThunk("sizes/fetch", async () => {
   const res = await api.get("/sizes");
-  console.log("API response:", res.data);
   return res.data;
 });
 
-// Add new size
 export const addSize = createAsyncThunk(
   "sizes/add",
   async (size: string, { dispatch, rejectWithValue }) => {
     try {
       const res = await api.post("/sizes", { size });
-      console.log("Size added:", res.data);
 
-      dispatch(fetchSizes());  // Refresh the list of sizes after adding a new one
+      dispatch(fetchSizes());
 
       return res.data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || "Error adding size");
+      return rejectWithValue(
+        error.response?.data?.message || "Error adding size"
+      );
     }
   }
 );
