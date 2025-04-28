@@ -1,28 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api/axiosInstance";
 
+// Postavi Product tip ako nije postavljen.
 export interface Product {
-  id: number;
+  id?: number;
   name: string;
-  price: number;
-  created_at: string;
-  images:string[];
-  gender: number; 
-  color_id: number;  
-  brand_id: number;  
-  total_ratings: number;
-  avg_rating: string;
-  isFavorite: number;
-  updated_at: string | null;
-  brand: {
-    id: number;
-    name: string;
-  };
-  categories: {
-    id: number;
-    name: string;
-  }[];
-  
+  price: string;
+  gender: number;
+  brand: number;
+  category: number;
+  color: number;
 }
 
 interface ProductsState {
@@ -37,10 +24,8 @@ const initialState: ProductsState = {
   error: null,
 };
 
-// Get products
 export const fetchProducts = createAsyncThunk("products/fetch", async () => {
   const res = await api.get("/products");
-  console.log("API response:", res.data); 
   return res.data.data;
 });
 
@@ -48,7 +33,7 @@ export const addProduct = createAsyncThunk(
   "products/addProduct",
   async (newProduct: Product) => {
     const res = await api.post("/products", newProduct);
-    return res.data.data; // Vraća novi proizvod
+    return res.data.data;
   }
 );
 
@@ -66,9 +51,12 @@ const productsSlice = createSlice({
         state.products = action.payload;
         state.loading = false;
       })
-      .addCase(fetchProducts.rejected, (state, action) => {
+      .addCase(fetchProducts.rejected, (state) => {
         state.loading = false;
-        state.error = "Error";
+        state.error = "Error fetching products";
+      })
+      .addCase(addProduct.fulfilled, (state, action) => {
+        state.products.push(action.payload);
       });
   },
 });

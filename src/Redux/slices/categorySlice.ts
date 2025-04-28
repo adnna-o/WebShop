@@ -29,8 +29,12 @@ export const fetchCategories = createAsyncThunk("categories/fetch", async () => 
 // Add category
 export const addCategory = createAsyncThunk(
   "categories/add",
-  async (newCategory: { name: string }) => {
+  async (newCategory: { name: string }, { dispatch }) => {
     const res = await api.post("/categories", newCategory);
+
+    // Fetch categories again after adding the new category
+    dispatch(fetchCategories());
+
     return res.data;
   }
 );
@@ -51,10 +55,17 @@ const categoriesSlice = createSlice({
       })
       .addCase(fetchCategories.rejected, (state) => {
         state.loading = false;
-        state.error = "Error";
+        state.error = "Error fetching categories";
       })
       .addCase(addCategory.fulfilled, (state, action) => {
-        state.categories.push(action.payload);
+        const newCategory = {
+          id: action.payload.id,
+          name: action.payload.name,
+          created_at: action.payload.created_at ?? new Date().toISOString(),
+          updated_at: action.payload.updated_at ?? null,
+        };
+
+        state.categories.push(newCategory);
       });
   },
 });

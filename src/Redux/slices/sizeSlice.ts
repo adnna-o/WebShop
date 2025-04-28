@@ -30,10 +30,17 @@ export const fetchSizes = createAsyncThunk("sizes/fetch", async () => {
 // Add new size
 export const addSize = createAsyncThunk(
   "sizes/add",
-  async (size: string) => {
-    const res = await api.post("/sizes", { size });
-    console.log("Size added:", res.data);
-    return res.data;
+  async (size: string, { dispatch, rejectWithValue }) => {
+    try {
+      const res = await api.post("/sizes", { size });
+      console.log("Size added:", res.data);
+
+      dispatch(fetchSizes());  // Refresh the list of sizes after adding a new one
+
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Error adding size");
+    }
   }
 );
 
@@ -43,7 +50,6 @@ const sizesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-     
       .addCase(fetchSizes.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -56,18 +62,16 @@ const sizesSlice = createSlice({
         state.loading = false;
         state.error = "Error fetching sizes";
       })
-     
       .addCase(addSize.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(addSize.fulfilled, (state, action) => {
-        state.sizes.push(action.payload); 
+      .addCase(addSize.fulfilled, (state) => {
         state.loading = false;
       })
-      .addCase(addSize.rejected, (state) => {
+      .addCase(addSize.rejected, (state, action) => {
         state.loading = false;
-        state.error = "Error adding size";
+        state.error = action.payload as string;
       });
   },
 });
