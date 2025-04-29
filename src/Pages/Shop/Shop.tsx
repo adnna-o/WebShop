@@ -7,11 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../Redux/store';
 import { setGenderFilter } from '../../Redux/slices/filterSlice';
 import { useParams } from 'react-router-dom';
+// @ts-ignore
 import { Rings } from 'react-loader-spinner';
 import ReactPaginate from 'react-paginate';
 import ArrowLeftIcon from '../../Components/BackIcon/BackIcon';
 import ArrowRightIcon from '../../Components/ArrowRightIcon/ArrowRightIcon';
 import { useTranslation } from 'react-i18next';
+
 
 type GenderParam = 'men' | 'women' | 'children' | 'all';
 

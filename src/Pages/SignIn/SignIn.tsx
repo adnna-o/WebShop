@@ -126,8 +126,7 @@ const SignIn: React.FC = () => {
       last_name: form.lastName,
       email: form.email,
       password: form.password,
-      password_confirmation: form.confirmPassword,
-      role: 'customer',
+    
     };
 
     try {
