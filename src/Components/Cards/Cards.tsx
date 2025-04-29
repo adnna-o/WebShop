@@ -1,51 +1,111 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import "./Cards.css";
 import { FaHeart } from "react-icons/fa";
-
-// Swiper core
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import { Pagination, Navigation } from "swiper/modules";
+import { useTranslation } from "react-i18next";
+
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../Redux/store";
+import { fetchProducts } from "../../Redux/slices/productSlice";
+
+
+interface CardProduct {
+  id: number;
+  name: string;
+  price: number;
+  gender: number;
+  color_id: number;
+  brand_id: number;
+  isFavorite: boolean;
+  brands:{}[];
+  images: {
+    name: string;
+    path: string;
+    is_main: number;
+  }[];
+  categories: {
+    id: number;
+    name:string;
+  }[];
+  discounts: {
+    id: number;
+  }[];
+  sizes: {
+    id: number;
+    amount: number;
+  }[];
+  description?: string;
+  created_at: string;
+}
 
 export const Cards: FC = () => {
+  const { t } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const products = useSelector((state: RootState) => state.products.products) as CardProduct[];
+  const status = useSelector((state: RootState) => state.products.loading);
+
+  useEffect(() => {
+    if (products.length === 0) {
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, products.length]);
+
+  const groupedProducts: CardProduct[][] = products.reduce<CardProduct[][]>(
+    (acc, product, index) => {
+      const groupIndex = Math.floor(index / 4);
+      if (!acc[groupIndex]) acc[groupIndex] = [];
+      acc[groupIndex].push(product);
+      return acc;
+    },
+    []
+  );
+
   return (
     <div className="cards-wrapper">
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
         centeredSlides={true}
-        pagination={{
-          clickable: true,
-        }}
+        pagination={{ clickable: true }}
         navigation={true}
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        {Array.from({ length: 5 }).map((_, slideIndex) => (
+        {groupedProducts.map((group, slideIndex) => (
           <SwiperSlide key={slideIndex}>
             <div className="product-slider">
-              {[1, 2, 3, 4].map((_, i) => (
-                <div className="card" key={i}>
-                  <img
-                    src="./images/women.webp"
-                    alt="product"
-                    className="product-image"
-                  />
-                  <div className="price">
-                    <button className="btn-price">$</button>
+              {group.map((product) => (
+                <div className="card" key={product.id}>
+                  <div className="product-image-wrapper">
+                    {product.images.length > 0 && (
+                      <img
+                        src={"/images/children.webp"} 
+                        alt={product.name}
+                      />
+                    )}
+                    <button className="btn-price">${product.price}</button>
                   </div>
+                  <p className="product-name">
+                    {product.name}
+                  </p>
                   <div className="product-info">
-                    <p className="product-category">Category</p>
-                    <p className="product-brand">Brand</p>
+                    <p className="product-category">
+                      {t("product-category")}: {product.categories[0]?.name || "N/A"}
+                    </p>
+                    <p className="product-brand">
+                      {t("product-brand")}: {product.brand_id}
+                    </p>
                   </div>
                   <div className="card-buttons">
                     <button className="heart-btn">
-                      <FaHeart color="#5978DC" size={18} />
+                      <FaHeart color="#6c63ff" size={18} />
                     </button>
-                    <button className="buy-btn">BUY</button>
+                    <button className="buy-btn">{t("buy-btn")}</button>
                   </div>
                 </div>
               ))}

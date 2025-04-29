@@ -5,7 +5,12 @@
     align-items: center;
     flex-direction: column;
 }
-.hero-title{
-    font-size: 50px;
-    font-family:sans-serif;
+.titletwo{
+    font-size: 60px;
+    font-family:Train one, cursive;
+    
+    
+}
+.span{
+ font-size: 20px;
 }

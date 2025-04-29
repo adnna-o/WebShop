@@ -1,0 +1,134 @@
+.brand-main {
+    padding: 20px;
+  }
+  
+  .brand_add_item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    width:30%;
+  }
+  
+  .btn-addBrand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #fff;
+    border: none;
+    color: #282828;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .brand_table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .brand_table th,
+  .brand_table td {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .brand-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .btn-options {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-options.delete {
+    background-color: #d10f0f;
+    color: #fff;
+  }
+  
+  .btn-options:not(.delete) {
+    background-color: #2e7d2e;
+    color: #fff;
+  }
+
+  .brand-form-popup {
+    position: absolute;
+    top: 150px; /* podešavaš po potrebi */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .input-addBrand {
+    width: 250px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .form-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn-save {
+    background-color: #2e7d2e;
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-cancel {
+    background-color:#d10f0f;
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 10px 0;
+    margin-top: 20px;
+  }
+  
+  .pagination-container li {
+    margin: 0 5px;
+  }
+  
+  .pagination-container .active-page {
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .pagination-container .disabled-page {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination-container button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }

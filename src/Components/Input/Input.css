@@ -1,0 +1,34 @@
+
+.input-container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .input-field {
+    background-color: var(--auth-input);
+    border: 1px solid var(--auth-input-border);
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: var(--logo-purple);
+    height: 30px;
+    padding: 0 10px;
+    width: 100%;
+  }
+  
+  .input-error{
+    background-color: var(--auth-error-bg);
+    border: 1px solid var(--auth-error-primary);
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: var(--auth-error-primary);
+    height: 30px;
+    width: 100%;
+  }
+  
+  .error-text {
+    color: var(--auth-error-primary);
+    font-size: 11px;
+   
+  }
+ 
+  
