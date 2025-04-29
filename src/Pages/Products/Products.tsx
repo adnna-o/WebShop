@@ -16,7 +16,7 @@ import ReactPaginate from "react-paginate";
 
 const Products: FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { products } = useSelector((state: RootState) => state.products);
+  const { products,loading, error  } = useSelector((state: RootState) => state.products);
   const { brands } = useSelector((state: RootState) => state.brands);
   const { categories } = useSelector((state: RootState) => state.categories);
   const { sizes } = useSelector((state: RootState) => state.sizes);
@@ -240,7 +240,8 @@ const Products: FC = () => {
         </div>
       )}
       {successMessage && <div className="success-popup">{successMessage}</div>}
-
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <div className="product_table">
         <table>
           <thead>
