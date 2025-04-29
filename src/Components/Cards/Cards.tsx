@@ -21,6 +21,7 @@ interface CardProduct {
   color_id: number;
   brand_id: number;
   isFavorite: boolean;
+  brands:{}[];
   images: {
     name: string;
     path: string;
@@ -28,6 +29,7 @@ interface CardProduct {
   }[];
   categories: {
     id: number;
+    name:string;
   }[];
   discounts: {
     id: number;
@@ -93,7 +95,7 @@ export const Cards: FC = () => {
                   </p>
                   <div className="product-info">
                     <p className="product-category">
-                      {t("product-category")}: {product.categories[0]?.id || "N/A"}
+                      {t("product-category")}: {product.categories[0]?.name || "N/A"}
                     </p>
                     <p className="product-brand">
                       {t("product-brand")}: {product.brand_id}
