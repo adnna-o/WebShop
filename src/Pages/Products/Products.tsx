@@ -16,7 +16,9 @@ import ReactPaginate from "react-paginate";
 
 const Products: FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { products,loading, error  } = useSelector((state: RootState) => state.products);
+  const { products, loading, error } = useSelector(
+    (state: RootState) => state.products
+  );
   const { brands } = useSelector((state: RootState) => state.brands);
   const { categories } = useSelector((state: RootState) => state.categories);
   const { sizes } = useSelector((state: RootState) => state.sizes);
@@ -33,12 +35,12 @@ const Products: FC = () => {
   const [gender, setGender] = useState<string>("");
   const [color, setColor] = useState<string>("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState<File | null>(null);
+  const [images, setImage] = useState<File[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const itemsPerPage = 10; 
-  const [currentPage, setCurrentPage] = useState(0); 
+  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(0);
 
   const resetForm = () => {
     setProductName("");
@@ -49,7 +51,7 @@ const Products: FC = () => {
     setGender("");
     setColor("");
     setDescription("");
-    setImage(null);
+    setImage([]);
   };
 
   useEffect(() => {
@@ -62,47 +64,52 @@ const Products: FC = () => {
 
   const handleAddProduct = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     const formDataToSend = new FormData();
     formDataToSend.append("name", productName);
     formDataToSend.append("price", productPrice);
     formDataToSend.append("gender_id", gender);
     formDataToSend.append("color_id", color);
     formDataToSend.append("brand_id", brand);
-
+  
     if (category) {
       formDataToSend.append("categories[]", category);
     }
-
+  
     sizes.forEach((s) => {
-      if (productSizes[s.id.toString()]) {
-        formDataToSend.append(
-          `sizes[${s.id}][size_id]`,
-          s.id?.toString() || ""
-        );
-        formDataToSend.append(
-          `sizes[${s.id}][amount]`,
-          productSizes[s.id.toString()]
-        );
+      const amount = productSizes[s.id.toString()];
+      if (amount) {
+        formDataToSend.append(`sizes[${s.id}][size_id]`, s.id.toString());
+        formDataToSend.append(`sizes[${s.id}][amount]`, amount);
       }
     });
-
-    if (image) {
-      formDataToSend.append("images[]", image);
+  
+    if (images.length > 0) {
+      for (const img of images) {
+        if (!["image/jpeg", "image/png", "image/jpg", "image/gif"].includes(img.type)) {
+          alert("Invalid image type. Only JPEG, PNG, JPG, or GIF are allowed.");
+          return;
+        }
+        formDataToSend.append("images[]", img);
+      }
     }
-
+  
     formDataToSend.append("description", description);
-
-    await dispatch(addProduct(formDataToSend));
-    setSuccessMessage("Product successfully added!");
-    await dispatch(fetchProducts());
-
-    resetForm();
-    setShowForm(false);
-    dispatch(fetchProducts());
-    setTimeout(() => {
-      setSuccessMessage(null);
-    }, 3000);
+  
+    const result = await dispatch(addProduct(formDataToSend));
+  
+    if (addProduct.fulfilled.match(result)) {
+      setSuccessMessage("Product successfully added!");
+      await dispatch(fetchProducts());
+      resetForm();
+      setShowForm(false);
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 3000);
+    } else {
+      alert("Error adding product.");
+      console.error("Add product failed:", result);
+    }
   };
 
   const indexOfLastItem = (currentPage + 1) * itemsPerPage;
@@ -110,7 +117,7 @@ const Products: FC = () => {
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
-    setCurrentPage(selected); 
+    setCurrentPage(selected);
   };
 
   return (
@@ -225,9 +232,13 @@ const Products: FC = () => {
                   type="file"
                   name="image"
                   id="image"
-                  onChange={(e) =>
-                    setImage(e.target.files ? e.target.files[0] : null)
-                  }
+                  multiple
+                  accept="image/jpeg, image/png, image/jpg, image/gif"
+                  onChange={(e) => {
+                    if (e.target.files) {
+                      setImage(Array.from(e.target.files));
+                    }
+                  }}
                 />
               </div>
               <br />
