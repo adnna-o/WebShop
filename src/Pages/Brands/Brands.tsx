@@ -5,6 +5,7 @@ import { fetchBrands, createBrand } from "../../Redux/slices/brandSlice";
 import ReactPaginate from "react-paginate";
 import "./Brands.css";
 import Input from "../../Components/Input/Input";
+import AddIcon from "../AddIcon/AddIcon";
 
 const Brands: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -51,8 +52,9 @@ const Brands: FC = () => {
   return (
     <div className="brand-main">
       <div className="brand_add_item">
+        
         <button className="btn-addBrand" onClick={() => setShowForm(true)}>
-          Add new Brand
+        <AddIcon/> Add new Brand
         </button>
       </div>
 

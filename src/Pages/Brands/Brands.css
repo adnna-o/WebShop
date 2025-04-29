@@ -3,16 +3,25 @@
   }
   
   .brand_add_item {
+    display: flex;
+    align-items: center;
     margin-bottom: 16px;
+    width:30%;
   }
   
   .btn-addBrand {
-    color: #282828;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 8px 16px;
-    border: none;
     background-color: #fff;
+    border: none;
+    color: #282828;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 5px;
+    height: 40px;
+    transition: background-color 0.3s ease;
   }
   
   .brand_table table {
